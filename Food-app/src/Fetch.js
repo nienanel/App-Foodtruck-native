@@ -27,30 +27,33 @@ const Fetch = () => {
 
     if (loading) {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <View>
                 <Text>Loading...</Text>
             </View>
         );
     }
 
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'red' }}>
-                <FlatList
-                    style={{ width: '100%' }}
-                    data={data}
-                    numColumns={1}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <Pressable style={{ backgroundColor: 'red', padding: 16, borderRadius: 8, margin: 5 }}>
-                            <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
-                                <Image source={{ uri: item.img }} style={{ width: 100, height: 100 }} />
-                            </View>
-                        </Pressable>
-                    )}
-                />
+    return (
+        <View className=" ">
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Menu</Text>
             </View>
-        );
-    };
+            <FlatList
+                style={{ width: '100%' }}
+                data={data}
+                numColumns={2}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <Pressable>
+                        <View >
+                            <Text>{item.name}</Text>
+                            <Image source={{ uri: item.img }} style={{ width: 100, height: 100 }} />
+                        </View>
+                    </Pressable>
+                )}
+            />
+        </View>
+    );
+};
 
-    export default Fetch;
+export default Fetch;

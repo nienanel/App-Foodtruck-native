@@ -8,7 +8,6 @@ const ListScreen = () => {
 
     return (
         <View className="flex-1 items-center justify-center">
-            <Text>ListScreen</Text>
             <Fetch />
         </View>
     )

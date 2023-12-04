@@ -8,6 +8,7 @@ import { AntDesign } from "@expo/vector-icons"
 // components
 import Categories from "../components/Categories"
 import ListScreen from './ListScreen'
+import Fetch from '../src/Fetch'
 
 function HomeScreen() {
     const navigation = useNavigation()
@@ -60,8 +61,10 @@ function HomeScreen() {
             </ScrollView>
 
             {/* Menu */}
-            <ListScreen />
+    
             <Button onPress={() => navigation.navigate('ListDetail')} title="ListDetail" />
+            <Button onPress={() => navigation.navigate('List')} title="List" />
+
         </SafeAreaView>
     )
 }
