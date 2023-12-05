@@ -22,7 +22,7 @@ const Fetch = () => {
             }
         };
         FetchData();
-        console.log(data);
+        // console.log(data);
     }, []);
 
     if (loading) {
@@ -34,23 +34,25 @@ const Fetch = () => {
     }
 
     return (
-        <View className=" ">
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Menu</Text>
+        <View>
+            <View>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 10 }}>Menu</Text>
             </View>
             <FlatList
-                style={{ width: '100%' }}
+                style={{ width: '100%', height: '100%' }}
                 data={data}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <Pressable>
-                        <View >
-                            <Text>{item.name}</Text>
-                            <Image source={{ uri: item.img }} style={{ width: 100, height: 100 }} />
+                        <View className="bg-slate-400 p-4">
+                            <Text className="font-bold text-center">{item.name}</Text>
+                            <Image source={{ uri: item.img }} style={{ width: 125, height: 105 }} />
+                            <Text className="text-center">{item.price}</Text>
                         </View>
                     </Pressable>
                 )}
+                contentContainerStyle={{ alignItems: 'center', gap: 15, padding: 10, flexDirection: 'column', justifyContent: 'center', height: '100%', width: '100%', backgroundColor: 'red' }}
             />
         </View>
     );

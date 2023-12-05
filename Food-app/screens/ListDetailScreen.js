@@ -4,7 +4,7 @@ import React from 'react'
 export default function ListDetailScreen() {
     return (
         <View>
-            <Text>ListDetailScreen</Text>
+            <Text>ListDetailScreen q va a ser un modal</Text>
         </View>
     )
 }

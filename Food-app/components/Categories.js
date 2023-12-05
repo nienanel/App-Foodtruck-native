@@ -1,7 +1,15 @@
-import { View, Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import React from "react";
 
 import CategoryCard from "./CategoryCard";
+
+//categories images
+import categoryOne from "../assets/categories1.jpg";
+import categoryTwo from "../assets/categoriesBurritos.jpg";
+import categoryThree from "../assets/categoriesPizza.jpg";
+import categoryFour from "../assets/categoriesCold.jpg";
+import categoryFive from "../assets/categoriesAsia.jpg";
+import categorySix from "../assets/categoriesDesert.jpg";
 
 const Categories = () => {
     return (
@@ -13,10 +21,12 @@ const Categories = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
         >
-            <CategoryCard imgUrl="https://links.papareact.com/wru" title="Testing" />
-            <CategoryCard imgUrl="https://links.papareact.com/wru" title="Testing2" />
-            <CategoryCard imgUrl="https://links.papareact.com/wru" title="Testing3" />
-            <CategoryCard imgUrl="https://links.papareact.com/wru" title="Testing4" />
+            <CategoryCard localImage={categoryOne} title="Hamburgers" />
+            <CategoryCard localImage={categoryTwo} title="Burritos" />
+            <CategoryCard localImage={categoryThree} title="Pizzas" />
+            <CategoryCard localImage={categoryFour} title="Cold" />
+            <CategoryCard localImage={categoryFive} title="Asia" />
+            <CategoryCard localImage={categorySix} title="Desert" />
         </ScrollView>
     );
 }

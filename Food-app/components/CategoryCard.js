@@ -1,11 +1,17 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { Text, TouchableOpacity, Image } from 'react-native'
 
-function CategoryCard({ imgUrl, title }) {
+function CategoryCard({ imgUrl, title, localImage }) {
+    let source = imgUrl ? { uri: imgUrl } : localImage;
     return (
-        <TouchableOpacity className="relative mr-2">
-            <Image source={{ uri: imgUrl }}
-                className="h-20 w-20 rounded"
+        <TouchableOpacity className="relative mr-3 mt-3">
+            <Image source={source}
+                style={{
+                    width: 95,
+                    height: 90,
+                    resizeMode: "stretch",
+                    borderRadius: 10,
+                }}
             />
             <Text className="absolute bottom-1 left-1 text-white font-bold">{title}</Text>
         </TouchableOpacity>

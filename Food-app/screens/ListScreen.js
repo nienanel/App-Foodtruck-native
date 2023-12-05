@@ -1,6 +1,6 @@
 import { View, Text, Button } from 'react-native'
 import React from 'react'
-
+//components
 import Fetch from '../src/Fetch'
 
 const ListScreen = () => {
@@ -13,4 +13,4 @@ const ListScreen = () => {
     )
 }
 
-export default ListScreen
+export default ListScreen;
