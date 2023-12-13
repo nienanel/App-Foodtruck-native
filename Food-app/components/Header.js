@@ -6,8 +6,8 @@ import { AntDesign } from "@expo/vector-icons"
 
 const Header = () => {
     return (
-        <View>
-            <View className="flex-row pb-3 items-center mx-3 space-x-1 p-4 ">
+        <View className="bg-red-200">
+            <View className=" flex-row pb-3 items-center mt-2 space-x-1 p-3 ">
                 <View>
                     <Image
                         source={Logo}

@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Pressable, Image } from 'react-native'
+import { View, Text, FlatList, Pressable, Image, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { firebase } from '../firebaseConfig'
 
@@ -22,7 +22,6 @@ const Fetch = () => {
             }
         };
         FetchData();
-        // console.log(data);
     }, []);
 
     if (loading) {
@@ -34,12 +33,20 @@ const Fetch = () => {
     }
 
     return (
-        <View>
+        <ScrollView
+            contentContainerStyle={{
+                alignItems: 'center',
+                gap: 15,
+                padding: 10,
+                flexDirection: 'column',
+                justifyContent: 'center',
+            }}
+        >
             <View>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 10 }}>Menu</Text>
+                <Text className="font-bold text-3xl">Menu</Text>
             </View>
             <FlatList
-                style={{ width: '100%', height: '100%' }}
+                style={{ flex: 1 }}
                 data={data}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
@@ -54,7 +61,7 @@ const Fetch = () => {
                 )}
                 contentContainerStyle={{ alignItems: 'center', gap: 15, padding: 10, flexDirection: 'column', justifyContent: 'center', height: '100%', width: '100%', backgroundColor: 'red' }}
             />
-        </View>
+        </ScrollView>
     );
 };
 

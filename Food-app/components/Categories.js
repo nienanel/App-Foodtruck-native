@@ -11,7 +11,7 @@ import categoryFour from "../assets/categoriesCold.jpg";
 import categoryFive from "../assets/categoriesAsia.jpg";
 import categorySix from "../assets/categoriesDesert.jpg";
 
-const Categories = () => {
+const Categories = ({ onSelectCategory }) => {
     return (
         <ScrollView
             contentContainerStyle={{
@@ -21,12 +21,12 @@ const Categories = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
         >
-            <CategoryCard localImage={categoryOne} title="Hamburgers" />
-            <CategoryCard localImage={categoryTwo} title="Burritos" />
-            <CategoryCard localImage={categoryThree} title="Pizzas" />
-            <CategoryCard localImage={categoryFour} title="Cold" />
-            <CategoryCard localImage={categoryFive} title="Asia" />
-            <CategoryCard localImage={categorySix} title="Desert" />
+            <CategoryCard localImage={categoryOne} title="burger" onSelectCategory={onSelectCategory} />
+            <CategoryCard localImage={categoryTwo} title="burritos" onSelectCategory={onSelectCategory} />
+            <CategoryCard localImage={categoryThree} title="pizzas" onSelectCategory={onSelectCategory} />
+            <CategoryCard localImage={categoryFour} title="cold" onSelectCategory={onSelectCategory} />
+            <CategoryCard localImage={categoryFive} title="asia" onSelectCategory={onSelectCategory} />
+            <CategoryCard localImage={categorySix} title="desert" onSelectCategory={onSelectCategory} />
         </ScrollView>
     );
 }

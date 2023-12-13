@@ -1,10 +1,16 @@
-import React from 'react'
-import { Text, TouchableOpacity, Image } from 'react-native'
+import React, { useState } from 'react'
+import { Text, TouchableOpacity, Image, } from 'react-native'
 
-function CategoryCard({ imgUrl, title, localImage }) {
+function CategoryCard({ imgUrl, title, localImage, onSelectCategory }) {
+
     let source = imgUrl ? { uri: imgUrl } : localImage;
+    const handlePress = () => {
+        onSelectCategory(title)
+    };
+
+
     return (
-        <TouchableOpacity className="relative mr-3 mt-3">
+        <TouchableOpacity className="relative mr-3 mt-3" onPress={handlePress}>
             <Image source={source}
                 style={{
                     width: 95,
