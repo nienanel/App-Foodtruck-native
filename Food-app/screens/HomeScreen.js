@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native'
 import Header from "../components/Header"
 import CategoriesNav from '../components/CategoriesNav'
 import FeaturedRow from '../components/FeaturedRow'
-import Fetch from '../src/Fetch'
 
 function HomeScreen() {
     const navigation = useNavigation()

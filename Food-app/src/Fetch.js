@@ -1,68 +1,90 @@
-import { View, Text, FlatList, Pressable, Image, ScrollView } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { firebase } from '../firebaseConfig'
+// import React, { useState, useEffect, useCallback } from 'react'
+// import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
+// import { firebase } from "../firebaseConfig";
 
-const Fetch = () => {
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true)
-    const dataRef = firebase.firestore().collection('Menu')
+// import ItemDetailModal from '../components/ItemDetailModal';
 
-    useEffect(() => {
-        const FetchData = async () => {
-            try {
-                const querySnapshot = await dataRef.get();
-                const items = querySnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                }));
-                setData(items);
-                setLoading(false);
-            } catch (error) {
-                console.error("error en el fetch de la data", error);
-            }
-        };
-        FetchData();
-    }, []);
+// const FetchFiltered = ({ selectedCategory }) => {
+//     const [data, setData] = useState([])
+//     const [loading, setLoading] = useState(true)
+//     const [selectedItem, setSelectedItem] = useState(null)
 
-    if (loading) {
-        return (
-            <View>
-                <Text>Loading...</Text>
-            </View>
-        );
-    }
+//     const dataRef = useCallback(() => {
+//         return firebase.firestore().collection('Menu');
+//     }, []);
 
-    return (
-        <ScrollView
-            contentContainerStyle={{
-                alignItems: 'center',
-                gap: 15,
-                padding: 10,
-                flexDirection: 'column',
-                justifyContent: 'center',
-            }}
-        >
-            <View>
-                <Text className="font-bold text-3xl">Menu</Text>
-            </View>
-            <FlatList
-                style={{ flex: 1 }}
-                data={data}
-                numColumns={2}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <Pressable>
-                        <View className="bg-slate-400 p-4">
-                            <Text className="font-bold text-center">{item.name}</Text>
-                            <Image source={{ uri: item.img }} style={{ width: 125, height: 105 }} />
-                            <Text className="text-center">{item.price}</Text>
-                        </View>
-                    </Pressable>
-                )}
-                contentContainerStyle={{ alignItems: 'center', gap: 15, padding: 10, flexDirection: 'column', justifyContent: 'center', height: '100%', width: '100%', backgroundColor: 'red' }}
-            />
-        </ScrollView>
-    );
-};
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             try {
+//                 let query = dataRef();
+//                 if (selectedCategory) {
+//                     query = query.where('category', '==', selectedCategory);
+//                 }
+//                 const querySnapshot = await query.get()
+//                 const items = querySnapshot.docs.map((doc) => ({
+//                     id: doc.id,
+//                     ...doc.data(),
+//                     category: doc.data().category,
+//                 }));
+//                 setData(items)
+//                 setLoading(false)
+//             } catch (error) {
+//                 console.error("error en el fetch de la data", error);
+//             }
+//         }
+//         fetchData()
+//     }, [selectedCategory, dataRef])
 
-export default Fetch;
+//     if (loading) {
+//         return (
+//             <View>
+//                 <Text>Loading...</Text>
+//             </View>
+//         )
+//     }
+
+//     const handlePressItem = (item) => {
+//         setSelectedItem(item)
+//     }
+
+//     return (
+//         <ScrollView 
+//             contentContainerStyle={{
+//                 paddingHorizontal: 15,
+//                 paddingTop: 20,
+//                 paddingBottom: 30,
+//                 gap: 10
+//             }}
+//             horizontal
+//             showsHorizontalScrollIndicator={false}
+//         >
+        
+//                 {data.map((item) => (
+//                     <TouchableOpacity key={item.id} onPress={() => handlePressItem(item)}>
+//                         <View className="shadow-md shadow-black rounded-lg overflow-hidden">
+//                             <View className="bg-red-600 p-2">
+//                                 <Text className="text-lg font-semibold text-center">{item.name}</Text>
+//                             </View>
+//                             <View className="p-3 bg-red-400">
+//                                 <Image
+//                                     source={{ uri: item.img }}
+//                                     style={{ width: "100", height: 150, objectFit: "cover", borderRadius: 8, resizeMode: "cover" }}
+//                                 />
+//                                 <Text className="text-gray-700 my-3 text-center">{item.description}</Text>
+//                                 <View className="flex justify-between items-center">
+//                                     <Text className="text-red-500 font-semibold mb-2">{"$" + item.price}</Text>
+//                                     <TouchableOpacity className="bg-black px-4 py-2 rounded">
+//                                         <Text className="text-white">Add to cart</Text>
+//                                     </TouchableOpacity>
+//                                 </View>
+//                             </View>
+//                         </View>
+//                     </TouchableOpacity>
+//                 ))}
+        
+//             {selectedItem && <ItemDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} />}
+//         </ScrollView>
+//     )
+// }
+
+// export default FetchFiltered
