@@ -1,47 +1,45 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCartItems, removeFromCart } from '../store/cartSlice';
+import { removeFromCart, saveCart, loadCart } from '../store/cartSlice';
 
-const CartItem = React.memo(({ item, onRemove }) => (
-    <View style={styles.itemContainer}>
-        <Text style={styles.itemText}>{item.name}</Text>
-        <Text style={styles.itemText}>{item.price}</Text>
+const CartItem = ({ item, onRemove }) => (
+    <View style={{ backgroundColor: 'red', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10 }}>
+        <Text style={{ fontSize: 16 }}>{item.name}</Text>
+        <Text style={{ fontSize: 16 }}>{`$${item.price} x ${item.quantity}`}</Text>
         <TouchableOpacity onPress={() => onRemove(item)}>
-            <Text style={styles.removeText}>Remove</Text>
+            <Text style={{ color: 'white', fontSize: 16 }}>Remove</Text>
         </TouchableOpacity>
     </View>
-));
+);
 
 const CartScreen = () => {
-    const cartItems = useSelector(selectCartItems);
+    const cartItems = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
 
-    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
-    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    useEffect(() => {
+        dispatch(loadCart());
+    }, [dispatch]);
 
     const removeItemFromCart = (item) => {
-        dispatch(removeFromCart(item));
+        dispatch(removeFromCart({ id: item.id }));
+        dispatch(saveCart(cartItems.filter(cartItem => cartItem.id !== item.id)));
     };
 
+    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>CartScreen</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgray' }}>
             <FlatList
                 data={cartItems}
-                keyExtractor={item => item.id.toString()}
+                keyExtractor={(item, index) => `cart-item-${index}`}
                 renderItem={({ item }) => (
                     <CartItem item={item} onRemove={removeItemFromCart} />
                 )}
             />
-            <Text style={styles.totalText}>Total Quantity: {totalQuantity}</Text>
-            <Text style={styles.totalText}>Total Price: ${totalPrice.toFixed(2)}</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 20 }}>{`Total Price: $${totalPrice.toFixed(2)}`}</Text>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    // Estilos van aquí
-});
 
 export default CartScreen;

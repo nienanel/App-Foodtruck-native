@@ -10,21 +10,18 @@ const SearchScreen = ({ route }) => {
         const fethData = async () => {
             try {
                 const querySnapshot = await firebase.firestore().collection('Menu')
-                    .where('name', '>=', searchQuery.toLowerCase())
-                    .where('name', '<=', searchQuery.toLowerCase() + '\uf8ff')
-                    .get()
+                .orderBy('name')
+                .startAt(searchQuery.toLowerCase())
+                .endAt(searchQuery.toLowerCase() + '\uf8ff')
+                .get();
 
-                const items = querySnapshot.docs
-                .map(doc => doc.data())
-                .filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
-
-                setSearchResults(items)
+                const items = querySnapshot.docs.map(doc => doc.data());
+                setSearchResults(items);
             } catch (error) {
                 console.error("Error fetching search results", error)
             }
         }
         fethData()
-        console.log(searchResults)
     }, [searchQuery])
 
     return (

@@ -1,11 +1,18 @@
-import { View, Text, Image, TextInput } from 'react-native'
+import { View, Text, Image, Pressable } from 'react-native'
 import React from 'react'
 
 import Logo from "../assets/logo.jpg"
 import { AntDesign } from "@expo/vector-icons"
+import { useNavigation } from '@react-navigation/native'
 import Search from './Search'
 
 const Header = ({ onSearchSubmit }) => {
+    const navigation = useNavigation();
+
+    const handlePressCartIcon = () => {
+        navigation.navigate("Cart");
+    }
+
     return (
         <View className="bg-red-200">
             <View className=" flex-row pb-3 items-center mt-2 space-x-1 p-3 ">
@@ -21,7 +28,9 @@ const Header = ({ onSearchSubmit }) => {
                         <AntDesign name="down" size={20} color="red" />
                     </Text>
                 </View>
-                <AntDesign name="user" size={30} color="red" />
+                <Pressable className="bg-gray-200 p-1 rounded-full" onPress={handlePressCartIcon}>
+                    <AntDesign name="shoppingcart" size={35} color="red" />
+                </Pressable>
             </View>
             <Search onSearchSubmit={onSearchSubmit} />
         </View>

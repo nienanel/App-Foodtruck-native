@@ -1,27 +1,25 @@
 import React, { useState } from "react";
-import { Modal, View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { Modal, View, TouchableOpacity, Text } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, saveCart } from "../store/cartSlice";
 import { AntDesign } from '@expo/vector-icons';
-import { useDispatch } from "react-redux";
-import { addToCart } from "../store/cartSlice";
-import PropTypes from 'prop-types';
 
 const ItemDetailModal = ({ item, onClose }) => {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const dispatch = useDispatch();
-
-    if (!item) return null;
+    const cartItems = useSelector(state => state.cart.items);
 
     const addItemToCart = () => {
         if (count > 0) {
-            dispatch(addToCart({ ...item, quantity: count }));
+            const newItem = { ...item, quantity: count };
+            dispatch(addToCart(newItem));
+            dispatch(saveCart([...cartItems, newItem]));
+            onClose();
         }
     };
 
     const updateCount = (increment) => {
-        setCount(prevCount => {
-            const newCount = prevCount + increment;
-            return newCount < 0 ? 0 : newCount;
-        });
+        setCount(prevCount => Math.max(0, prevCount + increment));
     };
 
     return (
@@ -31,24 +29,24 @@ const ItemDetailModal = ({ item, onClose }) => {
             visible={!!item}
             onRequestClose={onClose}
         >
-            <View className="flex-1 items-center justify-center">
-                <View className="bg-red-500 rounded-lg p-10">
-                    <Text className="text-white font-bold text-lg mb-2">{item.name}</Text>
-                    <Text className="text-white">{item.description}</Text>
-                    <Text className="text-black text-center font-bold mt-5">{item.price}</Text>
-                    <TouchableOpacity onPress={onClose} className="absolute top-2 right-2">
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ backgroundColor: 'red', borderRadius: 10, padding: 20 }}>
+                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}>{item.name}</Text>
+                    <Text style={{ color: 'white' }}>{item.description}</Text>
+                    <Text style={{ color: 'black', fontWeight: 'bold', marginTop: 20 }}>{`Price: $${item.price}`}</Text>
+                    <TouchableOpacity onPress={onClose} style={{ position: 'absolute', top: 10, right: 10 }}>
                         <AntDesign name="closecircleo" size={24} color="black" />
                     </TouchableOpacity>
-                    <View className="flex-row items-center space-x-3 mt-5 ml-5 p-2">
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
                         <TouchableOpacity onPress={() => updateCount(-1)}>
                             <AntDesign name="minuscircleo" size={24} color="white" />
                         </TouchableOpacity>
-                        <Text className="text-white font-bold text-lg">{count}</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10 }}>{count}</Text>
                         <TouchableOpacity onPress={() => updateCount(1)}>
                             <AntDesign name="pluscircleo" size={24} color="white" />
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={addItemToCart} className="bg-black rounded-lg p-2 mt-5 items-center">
+                    <TouchableOpacity onPress={addItemToCart} style={{ backgroundColor: 'black', borderRadius: 10, padding: 10, marginTop: 20, alignItems: 'center' }}>
                         <AntDesign name="shoppingcart" size={24} color="white" />
                     </TouchableOpacity>
                 </View>
@@ -56,14 +54,5 @@ const ItemDetailModal = ({ item, onClose }) => {
         </Modal>
     );
 };
-
-ItemDetailModal.propTypes = {
-    item: PropTypes.object,
-    onClose: PropTypes.func.isRequired
-};
-
-const styles = StyleSheet.create({
-    // Estilos van aquí
-});
 
 export default ItemDetailModal;
