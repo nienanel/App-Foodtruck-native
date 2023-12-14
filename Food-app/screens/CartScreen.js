@@ -1,40 +1,47 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { selectCartItems, removeFromCart } from '../store/cartSlice'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCartItems, removeFromCart } from '../store/cartSlice';
+
+const CartItem = React.memo(({ item, onRemove }) => (
+    <View style={styles.itemContainer}>
+        <Text style={styles.itemText}>{item.name}</Text>
+        <Text style={styles.itemText}>{item.price}</Text>
+        <TouchableOpacity onPress={() => onRemove(item)}>
+            <Text style={styles.removeText}>Remove</Text>
+        </TouchableOpacity>
+    </View>
+));
 
 const CartScreen = () => {
-    const navigation = useNavigation()
-    const cartItem = useSelector(selectCartItems)
-    const totalQuantity = cartItem.reduce((total, item) => total + item.quantity, 0);
-    const totalPrice = cartItem.reduce((total, item) => total + item.totalPrice, 0);
-    const dispatch = useDispatch()
+    const cartItems = useSelector(selectCartItems);
+    const dispatch = useDispatch();
+
+    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
     const removeItemFromCart = (item) => {
-        dispatch(removeFromCart(item))
-    }
+        dispatch(removeFromCart(item));
+    };
 
     return (
-        <View>
-            <Text>CartScreen</Text>
+        <View style={styles.container}>
+            <Text style={styles.header}>CartScreen</Text>
             <FlatList
-                data={cartItem}
+                data={cartItems}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => (
-                    <View>
-                        <Text>{item.name}</Text>
-                        <Text>{item.price}</Text>
-                        <TouchableOpacity onPress={() => removeItemFromCart(item)}>
-                            <Text>Remove</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <CartItem item={item} onRemove={removeItemFromCart} />
                 )}
             />
-            <Text>Total Quantity: {totalQuantity}</Text>
-            <Text>Total Price: ${totalPrice.toFixed(2)}</Text>
+            <Text style={styles.totalText}>Total Quantity: {totalQuantity}</Text>
+            <Text style={styles.totalText}>Total Price: ${totalPrice.toFixed(2)}</Text>
         </View>
-    )
-}
+    );
+};
 
-export default CartScreen
+const styles = StyleSheet.create({
+    // Estilos van aquí
+});
+
+export default CartScreen;
