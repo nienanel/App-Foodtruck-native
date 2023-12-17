@@ -14,7 +14,7 @@ const Header = ({ onSearchSubmit }) => {
     }
 
     return (
-        <View className="bg-red-200">
+        <View className="bg-red-200 rounded-md">
             <View className=" flex-row pb-3 items-center mt-2 space-x-1 p-3 ">
                 <View>
                     <Image
@@ -28,7 +28,7 @@ const Header = ({ onSearchSubmit }) => {
                         <AntDesign name="down" size={20} color="red" />
                     </Text>
                 </View>
-                <Pressable className="bg-gray-200 p-1 rounded-full" onPress={handlePressCartIcon}>
+                <Pressable className="p-1 mb-2 mr-3" onPress={handlePressCartIcon}>
                     <AntDesign name="shoppingcart" size={35} color="red" />
                 </Pressable>
             </View>

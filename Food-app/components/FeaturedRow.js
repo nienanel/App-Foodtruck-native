@@ -4,9 +4,9 @@ import { AntDesign } from '@expo/vector-icons'
 
 import FoodTrucksCards from './FoodTrucksCards';
 
-const FeaturedRow = ({ title, description, feature }) => {
+const FeaturedRow = ({ title, description }) => {
     return (
-        <View className="bg-red-100 py-2">
+        <View className="bg-red-100 py-2 rounded-xl">
             <View className="mt-4 flex-row items-center justify-between px-5">
                 <Text className="text-lg font-bold px-4">{title}</Text>
                 <AntDesign name="arrowright" size={20} color="black" />

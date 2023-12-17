@@ -29,25 +29,25 @@ const ItemDetailModal = ({ item, onClose }) => {
             visible={!!item}
             onRequestClose={onClose}
         >
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <View style={{ backgroundColor: 'red', borderRadius: 10, padding: 20 }}>
-                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}>{item.name}</Text>
-                    <Text style={{ color: 'white' }}>{item.description}</Text>
-                    <Text style={{ color: 'black', fontWeight: 'bold', marginTop: 20 }}>{`Price: $${item.price}`}</Text>
-                    <TouchableOpacity onPress={onClose} style={{ position: 'absolute', top: 10, right: 10 }}>
+            <View className="flex-1 justify-center items-center">
+                <View className="bg-red-300 p-5 rounded-lg">
+                    <Text className="text-lg font-bold">{item.name}</Text>
+                    <Text className="text-gray-700 my-3 text-center">{item.description}</Text>
+                    <Text className="text-red-500 text-center font-semibold mb-2">{`Price: $${item.price}`}</Text>
+                    <TouchableOpacity onPress={onClose} className="absolute top-2 right-2">
                         <AntDesign name="closecircleo" size={24} color="black" />
                     </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+                    <View className="flex-row items-center p-5 justify-center">
                         <TouchableOpacity onPress={() => updateCount(-1)}>
-                            <AntDesign name="minuscircleo" size={24} color="white" />
+                            <AntDesign name="minuscircleo" size={30} color="white" />
                         </TouchableOpacity>
-                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18, marginHorizontal: 10 }}>{count}</Text>
+                        <Text className="text-lg font-bold mx-5">{count}</Text>
                         <TouchableOpacity onPress={() => updateCount(1)}>
-                            <AntDesign name="pluscircleo" size={24} color="white" />
+                            <AntDesign name="pluscircleo" size={30} color="white" />
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={addItemToCart} style={{ backgroundColor: 'black', borderRadius: 10, padding: 10, marginTop: 20, alignItems: 'center' }}>
-                        <AntDesign name="shoppingcart" size={24} color="white" />
+                    <TouchableOpacity onPress={addItemToCart} className="bg-red-500 p-3 rounded-lg items-center">
+                        <AntDesign name="shoppingcart" size={30} color="black" />
                     </TouchableOpacity>
                 </View>
             </View>

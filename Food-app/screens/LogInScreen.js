@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
+import {  auth, firebase } from '../firebaseConfig';
 
 import BackGroundVideo from "../components/BackGroundVideo";
-import { Checkbox } from 'react-native-paper';
-
 
 const LogInScreen = () => {
     const navigation = useNavigation();
-    const [isChecked, setIsChecked] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+
 
     return (
         <View style={styles.container}>
             <BackGroundVideo />
-            <View style={styles.content}>
-                <Text style={styles.text}>LogInScreen</Text>
+            <View style={styles.formContainer}>
+                <Text style={styles.title}>Log In</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    keyboardType="email-address"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    secureTextEntry
+                />
                 <View style={styles.buttonsContainer}>
                     <Pressable
                         onPress={() => navigation.navigate('Home')}
@@ -22,22 +35,12 @@ const LogInScreen = () => {
                     >
                         <Text style={styles.buttonText}>Enter</Text>
                     </Pressable>
-
                     <Pressable
                         title="Register"
                         style={styles.button}
                     >
                         <Text style={styles.buttonText}>Register</Text>
                     </Pressable>
-                </View>
-                <View style={styles.checkboxContainer}>
-                    <Checkbox
-                        status={isChecked ? 'checked' : 'unchecked'}
-                        onPress={() => setIsChecked(!isChecked)}
-                        style={styles.checkbox}
-                        uncheckedColor='black'
-                    />
-                    <Text style={styles.textCheck}>Suscribe!</Text>
                 </View>
             </View>
         </View>
@@ -47,12 +50,32 @@ const LogInScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        position: 'relative',
-        backgroundColor: 'red',
-    },
-    content: {
-        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: 'center',
+        alignItems: 'center',
+    },
+    formContainer: {
+        position: 'absolute',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        borderRadius: 10,
+        padding: 20,
+        marginHorizontal: 40,
+        shadowColor: '#000',
+        shadowOpacity: 0.25,
+        shadowRadius: 5,
+        elevation: 8,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 20,
+    },
+    input: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+        marginBottom: 20,
+        padding: 10,
     },
     text: {
         fontSize: 20,
@@ -71,38 +94,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         borderRadius: 20,
         elevation: 3,
-        backgroundColor: 'black',
+        backgroundColor: 'red',
         marginHorizontal: 10,
     },
     buttonText: {
-        fontSize: 16,
+        fontSize: 14,
         lineHeight: 21,
         fontWeight: 'bold',
         letterSpacing: 0.25,
         color: 'white',
     },
-    checkbox: {
-        backgroundColor: 'black',
-        color: 'white',
-    },
-    checkboxContainer: {
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
-        marginRight: 20,
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    textCheck: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: 'bold',
-        letterSpacing: 0.25,
-        color: 'white',
-        marginTop: 20,
-        marginLeft: 10,
-        marginBottom: 15,
-    }
+
 });
 
 export default LogInScreen;

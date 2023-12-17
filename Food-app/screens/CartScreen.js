@@ -29,15 +29,17 @@ const CartScreen = () => {
     const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgray' }}>
+        <View className="flex-1 bg-red-300">
             <FlatList
                 data={cartItems}
                 keyExtractor={(item, index) => `cart-item-${index}`}
                 renderItem={({ item }) => (
-                    <CartItem item={item} onRemove={removeItemFromCart} />
+                    <CartItem item={item} onRemove={removeItemFromCart}
+                    />
                 )}
+                className="w-full, mt-10,"
             />
-            <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 20 }}>{`Total Price: $${totalPrice.toFixed(2)}`}</Text>
+            <Text className="text-center text-xl mt-5 bg-red-100 text-yellow-700">{`Total Price: $${totalPrice.toFixed(2)}`}</Text>
         </View>
     );
 };

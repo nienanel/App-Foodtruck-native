@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, Button, View, StyleSheet, Text, ScrollView } from 'react-native'
+import { SafeAreaView, View, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 // components
 import Header from "../components/Header"
@@ -15,7 +15,6 @@ function HomeScreen() {
             <View>
                 <CategoriesNav />
             </View>
-            <Button onPress={() => navigation.navigate('ListDetail')} title="ListDetail" />
             <FeaturedRow
                 title="FoodTrucks Nearby"
                 description="option in your zone"
