@@ -4,6 +4,7 @@ import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
 import {  auth, firebase } from '../firebaseConfig';
 
 import BackGroundVideo from "../components/BackGroundVideo";
+import { colors } from '../constants/colors';
 
 const LogInScreen = () => {
     const navigation = useNavigation();
@@ -11,13 +12,11 @@ const LogInScreen = () => {
     const [password, setPassword] = useState(false);
     const [loading, setLoading] = useState(false);
 
-
-
     return (
         <View style={styles.container}>
             <BackGroundVideo />
             <View style={styles.formContainer}>
-                <Text style={styles.title}>Log In</Text>
+                <Text style={[styles.title, { fontFamily: 'Urbanist-Bold' }]}>Log In</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Email"
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20,
     },
@@ -76,6 +74,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ccc',
         marginBottom: 20,
         padding: 10,
+        fontFamily: 'UrbanistMedium',
     },
     text: {
         fontSize: 20,
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         borderRadius: 20,
         elevation: 3,
-        backgroundColor: 'red',
+        backgroundColor: colors.primary,
         marginHorizontal: 10,
     },
     buttonText: {
@@ -103,6 +102,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 0.25,
         color: 'white',
+        fontFamily: 'UrbanistMedium',
     },
 
 });

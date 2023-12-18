@@ -33,7 +33,6 @@ const Styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         backgroundColor: 'white',
-
         gap: 10
     }
 })
