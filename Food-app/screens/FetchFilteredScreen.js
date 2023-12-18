@@ -25,13 +25,11 @@ export default FetchFilteredScreen
 
 const Styles = StyleSheet.create({
     container: {
-        flexDirection: 'column',
         justifyContent: 'center',
-
+        alignItems: 'center',
     },
     maincontainer: {
-        
-        flexDirection: 'column',
         backgroundColor: 'white',
+        flex: 1
     }
 })

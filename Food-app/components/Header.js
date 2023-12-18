@@ -20,20 +20,22 @@ const Header = ({ onSearchSubmit }) => {
                 <View>
                     <Image
                         source={Logo}
-                        style={{ width: 70, height: 70, borderRadius: 100 }}
+                        style={{ width: 80, height: 80, borderRadius: 100}}
                     />
                 </View>
-                <View className="flex-1">
-                    <Text className="font-bold text-gray-400 text-xs">Deliver Now!</Text>
+                <View className="flex-1 p-2 flex-row">
+                    <Text className="font-bold p-2 text-gray-400 text-xs">Deliver Now!</Text>
                     <Text style={styles.textHeader}>Current Location
-                        <AntDesign name="down" size={20} color="white" />
+                        <AntDesign name="down" size={20} color="black" />
                     </Text>
                 </View>
-                <Pressable className="p-1 mb-2 mr-3" onPress={handlePressCartIcon}>
-                    <AntDesign name="shoppingcart" size={35} color="white" />
+                <Pressable className="m-1" onPress={handlePressCartIcon}>
+                    <AntDesign name="shoppingcart" size={38} color="white" style={{ opacity: 0.8, left: 10 }} />
                 </Pressable>
             </View>
+            <View className="p-3">
             <Search onSearchSubmit={onSearchSubmit} />
+            </View>
         </View>
     )
 }
@@ -46,7 +48,12 @@ const styles = StyleSheet.create({
     },
 
     textHeader: {
-        fontSize: 20,
-        fontFamily: "UrbanistBold",
+        fontSize: 13,
+        padding: 5,
+        fontFamily: "UrbanistMedium",
+        backgroundColor: colors.white,
+        borderRadius: 10,
+        marginLeft: 5,
+        width: 160
     }
 })

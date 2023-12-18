@@ -21,8 +21,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontLoaded] = useFonts({
-    "UrbanistBold": require("./assets/fonts/Urbanist-Bold.ttf"),
-    "UrbanistMedium": require("./assets/fonts/Urbanist-Medium.ttf")
+    UrbanistBold: require("./assets/fonts/Urbanist-Bold.ttf"),
+    UrbanistMedium: require("./assets/fonts/Urbanist-Medium.ttf")
   })
 
   const handleOnLayout = useCallback(async () => {
@@ -37,13 +37,13 @@ export default function App() {
 
   return (
       <View style={styles.container} onLayout={handleOnLayout}>
-      <StatusBar style="auto" />
+      <StatusBar style="dark"/>
       <NavigationContainer>
         <Provider store={store}>
           <NavigationProvider>
             <Stack.Navigator initialRouteName="LogIn" >
               <Stack.Screen name="LogIn" component={LogInScreen} options={{ headerShown: false }} />
-              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Home" component={HomeScreen} options={{ headerTintColor: "black" }}  />
               <Stack.Screen name="FetchFilteredScreen" component={FetchFilteredScreen} />
               <Stack.Screen name="Search" component={SearchScreen} />
               <Stack.Screen name="Cart" component={CartScreen} />

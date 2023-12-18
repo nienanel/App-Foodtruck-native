@@ -16,7 +16,7 @@ const LogInScreen = () => {
         <View style={styles.container}>
             <BackGroundVideo />
             <View style={styles.formContainer}>
-                <Text style={[styles.title, { fontFamily: 'Urbanist-Bold' }]}>Log In</Text>
+                <Text style={styles.title}>Log In</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Email"
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textAlign: 'center',
         marginBottom: 20,
+        fontFamily: 'UrbanistMedium',
     },
     input: {
         borderBottomWidth: 1,

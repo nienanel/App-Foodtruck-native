@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { loadCart } from '../store/cartSlice';
 import { firebase } from "../firebaseConfig";
 
+import { AntDesign } from '@expo/vector-icons';
+
 import ItemDetailModal from '../components/ItemDetailModal';
+import { colors } from '../constants/colors';
 
 const FetchFiltered = ({ selectedCategory }) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-    const [selectedItem, setSelectedItem] = useState(null); // Initialize selectedItem as null
+    const [selectedItem, setSelectedItem] = useState(null);
 
     const dataRef = useCallback(() => {
         return firebase.firestore().collection('Menu');
@@ -46,8 +49,8 @@ const FetchFiltered = ({ selectedCategory }) => {
 
     if (loading) {
         return (
-            <View>
-                <Text>Loading...</Text>
+            <View style={styles.loadingContainer}>
+                <AntDesign name="loading1" size={50} color="white" />
             </View>
         )
     }
@@ -63,19 +66,20 @@ const FetchFiltered = ({ selectedCategory }) => {
                 paddingHorizontal: 15,
                 paddingTop: 20,
                 paddingBottom: 30,
-                gap: 10
+                gap: 10,
+                backgroundColor: colors.terciary,
             }}
             horizontal
             showsHorizontalScrollIndicator={false}
         >
 
             {data.map((item) => (
-                <TouchableOpacity key={item.id} onPress={() => handlePressItem(item)}>
+                <TouchableOpacity key={item.id} onPress={() => handlePressItem(item)} className="flex-1">
                     <View className="shadow-md shadow-black rounded-lg overflow-hidden">
-                        <View className="bg-red-600 p-2">
-                            <Text className="text-lg font-semibold text-center">{item.name}</Text>
-                        </View>
-                        <View className="p-3 bg-red-400">
+                        <View style={styles.cardContainer}>
+                            <View className=" p-2">
+                                <Text className="text-lg font-semibold text-center border-b-2 border-red-500">{item.name}</Text>
+                            </View>
                             <Image
                                 source={{ uri: item.img }}
                                 style={{ width: "100", height: 150, objectFit: "cover", borderRadius: 8, resizeMode: "cover" }}
@@ -83,9 +87,6 @@ const FetchFiltered = ({ selectedCategory }) => {
                             <Text className="text-gray-700 my-3 text-center">{item.description}</Text>
                             <View className="flex justify-between items-center">
                                 <Text className="text-red-500 font-semibold mb-2">{"$" + item.price}</Text>
-                                <TouchableOpacity className="bg-black px-4 py-2 rounded">
-                                    <Text className="text-white">Add to cart</Text>
-                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -98,3 +99,16 @@ const FetchFiltered = ({ selectedCategory }) => {
 }
 
 export default FetchFiltered
+
+const styles = StyleSheet.create({
+    cardContainer: {
+        backgroundColor: colors.secondary,
+        padding: 10,
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.terciary,
+    }
+})

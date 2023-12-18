@@ -23,7 +23,7 @@ const Search = ({ onSearchSubmit }) => {
                 />
             </View>
             <TouchableOpacity onPress={handleSearchSubmit}>
-                <AntDesign name="search1" size={20} color="red" />
+                <AntDesign name="search1" size={25} color="white" />
             </TouchableOpacity>
         </View>
     )

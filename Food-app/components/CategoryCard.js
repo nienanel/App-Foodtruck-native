@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Text, TouchableOpacity, Image, } from 'react-native'
+import React from 'react'
+import { Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 
 function CategoryCard({ imgUrl, title, localImage, onSelectCategory }) {
 
@@ -13,15 +13,17 @@ function CategoryCard({ imgUrl, title, localImage, onSelectCategory }) {
         <TouchableOpacity className="relative mr-3 mt-3" onPress={handlePress}>
             <Image source={source}
                 style={{
-                    width: 95,
-                    height: 90,
+                    width: 110,
+                    height: 100,
                     resizeMode: "stretch",
                     borderRadius: 10,
                 }}
             />
-            <Text className="absolute bottom-1 left-1 text-white font-bold">{title}</Text>
+            <Text  className="absolute bottom-1 left-1 text-black text-center bg-red-200 font-bold w-[95px] rounded-md">{title}</Text>
         </TouchableOpacity>
     )
 }
 
 export default CategoryCard
+
+
