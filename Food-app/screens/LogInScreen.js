@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textAlign: 'center',
         marginBottom: 20,
-        fontFamily: 'UrbanistMedium',
+        fontFamily: 'UrbanistBold',
     },
     input: {
         borderBottomWidth: 1,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         borderRadius: 20,
         elevation: 3,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.secondary,
         marginHorizontal: 10,
     },
     buttonText: {

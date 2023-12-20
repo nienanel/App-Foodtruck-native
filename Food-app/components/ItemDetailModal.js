@@ -40,11 +40,11 @@ const ItemDetailModal = ({ item, onClose }) => {
                     </TouchableOpacity>
                     <View className="flex-row items-center p-5 justify-center">
                         <TouchableOpacity onPress={() => updateCount(-1)}>
-                            <AntDesign name="minuscircleo" size={30} color="white" />
+                            <AntDesign name="minuscircleo" size={30} color={count > 0 ? colors.primary : 'black'} />
                         </TouchableOpacity>
                         <Text className="text-lg font-bold mx-5">{count}</Text>
                         <TouchableOpacity onPress={() => updateCount(1)}>
-                            <AntDesign name="pluscircleo" size={30} color="white" />
+                            <AntDesign name="pluscircleo" size={30} color={count > 0 ? colors.primary : 'black'} />
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity onPress={addItemToCart} style={styles.cartButton}>

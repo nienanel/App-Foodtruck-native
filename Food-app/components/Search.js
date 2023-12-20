@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
+import { colors } from '../constants/colors';
 
 const Search = ({ onSearchSubmit }) => {
     const [search, setSearch] = useState('');
@@ -23,7 +24,7 @@ const Search = ({ onSearchSubmit }) => {
                 />
             </View>
             <TouchableOpacity onPress={handleSearchSubmit}>
-                <AntDesign name="search1" size={25} color="white" />
+                <AntDesign name="search1" size={25} color={colors.secondary} />
             </TouchableOpacity>
         </View>
     )

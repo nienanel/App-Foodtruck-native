@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 
 import Categories from './Categories'
+import { colors } from '../constants/colors';
 
 
 export default function CategoriesNav() {
@@ -15,7 +16,7 @@ export default function CategoriesNav() {
     };
 
     return (
-        <ScrollView className="bg-red-100 h-[18%] shadow-md shadow-black mt-2 mb-2"
+        <ScrollView style={styles.catNavContainer}
             contentContainerStyle={{
                 paddingBottom: 30,
             }}
@@ -24,3 +25,20 @@ export default function CategoriesNav() {
         </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    catNavContainer: {
+        backgroundColor: colors.primary,
+       marginHorizontal: 10,
+        shadowColor: "black",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginTop: 15,
+        marginBottom: 15,
+    },
+})

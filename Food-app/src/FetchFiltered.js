@@ -77,12 +77,12 @@ const FetchFiltered = ({ selectedCategory }) => {
                 <TouchableOpacity key={item.id} onPress={() => handlePressItem(item)} className="flex-1">
                     <View className="shadow-md shadow-black rounded-lg overflow-hidden">
                         <View style={styles.cardContainer}>
-                            <View className=" p-2">
+                            <View className="p-2">
                                 <Text className="text-lg font-semibold text-center border-b-2 border-red-500">{item.name}</Text>
                             </View>
                             <Image
                                 source={{ uri: item.img }}
-                                style={{ width: "100", height: 150, objectFit: "cover", borderRadius: 8, resizeMode: "cover" }}
+                                style={{ width: "100", height: 160, }}
                             />
                             <Text className="text-gray-700 my-3 text-center">{item.description}</Text>
                             <View className="flex justify-between items-center">
@@ -102,13 +102,13 @@ export default FetchFiltered
 
 const styles = StyleSheet.create({
     cardContainer: {
-        backgroundColor: colors.secondary,
+        backgroundColor: colors.white,
         padding: 10,
     },
     loadingContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.terciary,
+        backgroundColor: colors.primary,
     }
 })

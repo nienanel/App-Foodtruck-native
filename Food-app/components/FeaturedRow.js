@@ -1,18 +1,19 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons'
 
 import FoodTrucksCards from './FoodTrucksCards';
+import { colors } from '../constants/colors';
 
 const FeaturedRow = ({ title, description }) => {
     return (
-        <View className="bg-red-100 py-2 rounded-xl">
+        <View style={styles.featuredContainer}>
             <View className="mt-4 flex-row items-center justify-between px-5">
-                <Text className="text-lg font-bold px-4">{title}</Text>
-                <AntDesign name="arrowright" size={20} color="black" />
+                <Text style={styles.textRow}>{title}</Text>
+                <AntDesign name="arrowright" size={20} color={colors.secondary} />
             </View>
 
-            <Text className="text-xs text-gray-500 px-5">{description}</Text>
+            <Text className="text-xs text-gray-500 px-5 mt-2">{description}</Text>
             <ScrollView
                 horizontal
                 contentContainerStyle={{
@@ -55,5 +56,21 @@ const FeaturedRow = ({ title, description }) => {
         </View>
     );
 };
+const styles = StyleSheet.create({
+    featuredContainer: {
+        backgroundColor: colors.primary,
+        marginHorizontal: 10,
+        borderRadius: 10,
+        padding: 10,
+    },
+    textRow: {
+        fontSize: 20,
+        fontFamily: 'UrbanistBold',
+        color: "black",
+        borderBottomWidth: 1,
+        borderBottomColor: colors.secondary,
+    }    
+})
+
 
 export default FeaturedRow;

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, saveCart, loadCart } from '../store/cartSlice';
+import { removeFromCart, saveCart, loadCart, updateCartInfo, clearCart, } from '../store/cartSlice';
+import { colors } from '../constants/colors';
 
 const CartItem = ({ item, onRemove }) => (
     <View style={{ backgroundColor: 'red', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10 }}>
@@ -14,34 +15,54 @@ const CartItem = ({ item, onRemove }) => (
 );
 
 const CartScreen = () => {
-    const cartItems = useSelector(state => state.cart.items);
+    const { items: cartItems, totalPrice } = useSelector(state => state.cart);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(loadCart());
-    }, [dispatch]);
 
     const removeItemFromCart = (item) => {
         dispatch(removeFromCart({ id: item.id }));
-        dispatch(saveCart(cartItems.filter(cartItem => cartItem.id !== item.id)));
     };
 
-    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-
     return (
-        <View className="flex-1 bg-red-300">
-            <FlatList
-                data={cartItems}
-                keyExtractor={(item, index) => `cart-item-${index}`}
-                renderItem={({ item }) => (
-                    <CartItem item={item} onRemove={removeItemFromCart}
-                    />
-                )}
-                className="w-full, mt-10,"
-            />
-            <Text className="text-center text-xl mt-5 bg-red-100 text-yellow-700">{`Total Price: $${totalPrice.toFixed(2)}`}</Text>
+        <View style={styles.cartContainer}>
+            <TouchableOpacity style={styles.cartItmes}>
+                <FlatList
+                    data={cartItems}
+                    keyExtractor={(item, index) => `cart-item-${index}`}
+                    renderItem={({ item }) => (
+                        <CartItem item={item} onRemove={removeItemFromCart}
+                        />
+                    )}
+                />
+                <Text style={styles.cartTotal}>{`Total Price: $${totalPrice.toFixed(2)}`}</Text>
+            </TouchableOpacity>
         </View>
     );
 };
 
 export default CartScreen;
+
+const styles = StyleSheet.create({
+    cartContainer: {
+        width: '100%',
+        position: 'absolute',
+        bottom: 10,
+        backgroundColor: colors.white,
+        zIndex: -50
+    },
+    cartItmes: {
+        marginHorizontal: 5,
+        backgroundColor: colors.white,
+        padding: 4,
+        borderRadius: 4,
+        flexDirection: 'row',
+        justifyItems: 'center',
+    },
+    cartTotal: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 20,
+        color: colors.primary,
+        backgroundColor: colors.white,
+    }
+});

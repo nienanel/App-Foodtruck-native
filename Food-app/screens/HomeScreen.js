@@ -1,10 +1,11 @@
 import React from 'react'
-import { SafeAreaView, View, StyleSheet } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 // components
 import Header from "../components/Header"
 import CategoriesNav from '../components/CategoriesNav'
 import FeaturedRow from '../components/FeaturedRow'
+import { colors } from '../constants/colors'
 
 function HomeScreen() {
     const navigation = useNavigation()
@@ -28,11 +29,9 @@ export default HomeScreen;
 
 const Styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'column',
         height: '100%',
         width: '100%',
-        backgroundColor: 'white',
-        gap: 10
-    }
+        backgroundColor: colors.white,
+        gap: 5
+    },
 })

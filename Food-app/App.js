@@ -29,34 +29,27 @@ export default function App() {
     if (fontLoaded) {
       await SplashScreen.hideAsync();
     }
-  },[fontLoaded])
+  }, [fontLoaded])
 
   if (!fontLoaded) {
     return null
   }
 
   return (
-      <View style={styles.container} onLayout={handleOnLayout}>
-      <StatusBar style="dark"/>
-      <NavigationContainer>
-        <Provider store={store}>
-          <NavigationProvider>
-            <Stack.Navigator initialRouteName="LogIn" >
-              <Stack.Screen name="LogIn" component={LogInScreen} options={{ headerShown: false }} />
-              <Stack.Screen name="Home" component={HomeScreen} options={{ headerTintColor: "black" }}  />
-              <Stack.Screen name="FetchFilteredScreen" component={FetchFilteredScreen} />
-              <Stack.Screen name="Search" component={SearchScreen} />
-              <Stack.Screen name="Cart" component={CartScreen} />
-            </Stack.Navigator>
-          </NavigationProvider>
-        </Provider>
-      </NavigationContainer >  
-    </View>
+    <NavigationContainer onLayout={handleOnLayout}>
+      <StatusBar style="auto" />
+      <Provider store={store}>
+        <NavigationProvider>
+          <Stack.Navigator initialRouteName="LogIn" >
+            <Stack.Screen name="LogIn" component={LogInScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="FetchFilteredScreen" component={FetchFilteredScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Search" component={SearchScreen} />
+            <Stack.Screen name="Cart" component={CartScreen} />
+          </Stack.Navigator>
+        </NavigationProvider>
+      </Provider>
+    </NavigationContainer >
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-})

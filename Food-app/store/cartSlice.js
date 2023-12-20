@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { firestore } from '../firebaseConfig'; 
+import { firebase } from '../firebaseConfig'; 
 
 const initialState = {
     items: [],
-    loading: false
+    loading: false,
+    totalQuantity: 0,
+    totalPrice: 0,
 };
 
 export const loadCart = createAsyncThunk('cart/loadCart', async () => {
-    const cartRef = firestore.collection('cart').doc('cart');
+    const cartRef = firebase.firestore().collection('cart').doc('cart');
     const cartDoc = await cartRef.get();
     if (cartDoc.exists) {
         return cartDoc.data().items;
@@ -17,7 +19,7 @@ export const loadCart = createAsyncThunk('cart/loadCart', async () => {
 });
 
 export const saveCart = createAsyncThunk('cart/saveCart', async (items, { getState }) => {
-    const cartRef = firestore.collection('carts').doc('cart');
+    const cartRef = firestore.collection('cart').doc('cart');
     await cartRef.set({ items });
     return items;
 });
@@ -34,9 +36,17 @@ const cartSlice = createSlice({
             } else {
                 state.items.push({ ...newItem, quantity: newItem.quantity });
             }
+            state.totalQuantity = state.items.reduce((total, item) => total + item.quantity, 0);
+            state.totalPrice = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
         },
         removeFromCart: (state, action) => {
             state.items = state.items.filter(item => item.id !== action.payload.id);
+            state.totalQuantity = state.items.reduce((total, item) => total + item.quantity, 0);
+            state.totalPrice = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
+        },
+        updateCartInfo: (state) => {
+            state.totalQuantity = state.items.reduce((total, item) => total + item.quantity, 0);
+            state.totalPrice = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
         }
     },
     extraReducers: (builder) => {
@@ -57,5 +67,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateCartInfo } = cartSlice.actions;
 export default cartSlice.reducer;
