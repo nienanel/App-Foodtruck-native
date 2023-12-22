@@ -44,17 +44,15 @@ export default CartScreen;
 const styles = StyleSheet.create({
     cartContainer: {
         width: '100%',
-        position: 'absolute',
+        height: '100%',
         bottom: 10,
         backgroundColor: colors.white,
-        zIndex: -50
     },
     cartItmes: {
         marginHorizontal: 5,
-        backgroundColor: colors.white,
-        padding: 4,
-        borderRadius: 4,
-        flexDirection: 'row',
+        marginVertical: 10,
+        padding: 5,
+        flexDirection: 'column',
         justifyItems: 'center',
     },
     cartTotal: {
@@ -62,7 +60,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 20,
-        color: colors.primary,
+        color: colors.secondary,
         backgroundColor: colors.white,
     }
 });

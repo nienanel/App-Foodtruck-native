@@ -1,23 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../constants/colors';
 
 const PopUpCart = () => {
     const navigation = useNavigation();
-    const { totalItems, totalPrice } = useSelector(state => state.cart);
-
-
-    // useEffect(() => {
-    //     dispatch(updateCartInfo())
-    // }, [dispatch, items]);
+    const { totalQuantity, totalPrice } = useSelector(state => state.cart);
 
     return (
         <View style={styles.popContainer}>
             <TouchableOpacity style={styles.popContent} onPress={() => navigation.navigate('Cart')}>
-                <Text style={styles.textLenght}>{totalItems}</Text>
-                <Text className="font-bold text-black text-lg">{totalItems > 1 ? 'Items' : 'Item'}</Text>
+                <Text style={styles.textLenght}>{totalQuantity}</Text>
+                <Text className="font-bold text-black text-lg">{totalQuantity > 1 ? 'Items' : 'Item'}</Text>
                 <Text style={styles.textTotal} >{`$${(totalPrice || 0).toFixed(2)}`}</Text>
             </TouchableOpacity>
         </View>
@@ -45,7 +40,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.white,
         textAlign: 'center',
-        width: 40,
+        width: 60,
         padding: 1,
     },
     popContent: {
@@ -61,3 +56,4 @@ const styles = StyleSheet.create({
 })
 
 export default PopUpCart
+

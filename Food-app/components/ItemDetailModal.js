@@ -14,7 +14,7 @@ const ItemDetailModal = ({ item, onClose }) => {
         if (count > 0) {
             const newItem = { ...item, quantity: count };
             dispatch(addToCart(newItem));
-            dispatch(saveCart([...cartItems, newItem]));
+            // dispatch(saveCart([...cartItems, newItem]));
             onClose();
         }
     };

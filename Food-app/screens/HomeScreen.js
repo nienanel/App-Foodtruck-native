@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, View, StyleSheet, Pressable } from 'react-native'
+import { SafeAreaView, View, StyleSheet} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 // components
 import Header from "../components/Header"

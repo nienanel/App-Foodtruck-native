@@ -1,10 +1,10 @@
 import React from 'react'
 import { Video, ResizeMode } from "expo-av"
-import { View, Text } from 'react-native'
+import { View, StyleSheet} from 'react-native'
 
 const BackGroundVideo = () => {
     return (
-        <View className="flex-1 justify-center items-center">
+        <View style={styles.backgroundVideo}>
             <Video
                 source={require("../assets/loginBackground.mp4")}
                 rate={1.0}
@@ -12,7 +12,7 @@ const BackGroundVideo = () => {
                 resizeMode={ResizeMode.COVER}
                 shouldPlay={true}
                 isLooping
-                className="absolute h-[100%] w-[100%] z-[-10] m-0"
+                className="absolute h-[100%] w-[100vw] z-[-10] m-0"
             />
         </View>
     )
@@ -20,3 +20,12 @@ const BackGroundVideo = () => {
 
 export default BackGroundVideo
 
+const styles = StyleSheet.create({
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+    }
+})

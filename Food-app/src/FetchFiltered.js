@@ -5,9 +5,8 @@ import { loadCart } from '../store/cartSlice';
 import { firebase } from "../firebaseConfig";
 
 import { AntDesign } from '@expo/vector-icons';
-
-import ItemDetailModal from '../components/ItemDetailModal';
 import { colors } from '../constants/colors';
+import ItemDetailModal from '../components/ItemDetailModal';
 
 const FetchFiltered = ({ selectedCategory }) => {
     const dispatch = useDispatch();

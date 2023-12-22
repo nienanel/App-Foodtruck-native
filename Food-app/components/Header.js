@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
-
+import { useSelector } from 'react-redux'
 import { AntDesign } from "@expo/vector-icons"
 import { useNavigation } from '@react-navigation/native'
 import Search from './Search'
@@ -8,6 +8,7 @@ import { colors } from '../constants/colors'
 
 const Header = ({ onSearchSubmit }) => {
     const navigation = useNavigation();
+    const cartItemCount = useSelector(state => state.cart.totalQuantity);
 
     const handlePressCartIcon = () => {
         navigation.navigate("Cart");
@@ -27,8 +28,13 @@ const Header = ({ onSearchSubmit }) => {
                     <Text style={styles.locationHeader}>Current Location</Text>
                     <AntDesign name="down" size={20} color={colors.secondary} />
                 </View>
-                <Pressable className="m-1" onPress={handlePressCartIcon}>
-                    <AntDesign name="shoppingcart" size={38} color={colors.secondary} style={styles.cartIcon} />
+                <Pressable style={styles.cartIconWrapper} onPress={handlePressCartIcon}>
+                    <AntDesign name="shoppingcart" size={38} color={colors.secondary} />
+                    {cartItemCount > 0 && (
+                        <View style={styles.cartItemCountBadge}>
+                            <Text style={styles.cartItemCountText}>{cartItemCount}</Text>
+                        </View>
+                    )}
                 </Pressable>
             </View>
             <View className="mt-2 ">
@@ -45,7 +51,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
-        height: 200,
     },
     headerTop: {
         flexDirection: "row",
@@ -58,12 +63,13 @@ const styles = StyleSheet.create({
         height: 120,
         resizeMode: "contain",
         marginTop: 5,
-        marginLeft: 10
+        marginLeft: 25,
     },
     locationContainer: {
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
+        marginTop: 10,
     },
     locationHeader: {
         fontSize: 13,
@@ -74,20 +80,33 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         width: 170,
     },
-    cartIcon: {
-        marginRight: 10,
-        padding: 8,
-        borderRadius: 100,
-        backgroundColor: colors.terciary,
-        width: 60,
-        height: 60,
-        textAlign: "center",
+    cartIconWrapper: {
+        position: "relative",
+        marginRight: 20,
+    },
+    cartItemCountBadge: {
+        position: "absolute",
+        top: -5,
+        right: -5,
+        backgroundColor: colors.secondary,
+        borderRadius: 10,
+        width: 20,
+        height: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    cartItemCountText: {
+        color: colors.white,
+        fontSize: 12,
+        fontFamily: "UrbanistBold",
     },
     leftIcon: {
-        position: 'absolute',
-        left: 0,
-        borderRadius: 50,
-        padding: 12,
-        zIndex: 50,
-    },
+        backgroundColor: colors.white,
+        position: "absolute",
+        top: 20,
+        left: 5,
+        zIndex: 1,
+        borderRadius: 10,
+        padding: 5,
+    }
 })

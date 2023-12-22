@@ -8,14 +8,20 @@ const initialState = {
     totalPrice: 0,
 };
 
-export const loadCart = createAsyncThunk('cart/loadCart', async () => {
-    const cartRef = firebase.firestore().collection('cart').doc('cart');
-    const cartDoc = await cartRef.get();
-    if (cartDoc.exists) {
-        return cartDoc.data().items;
-    } else {
-        return [];
-    }
+// utilidades
+export const loadCart = createAsyncThunk('cart/loadCart', async ( _, { getState }) => {
+    const { cart } = getState();
+    if (cart.items.length > 0) {
+        return cart.items; 
+};
+
+const cartRef = firebase.firestore().collection('cart').doc('cart');
+const cartDoc = await cartRef.get();
+if (cartDoc.exists) {
+    return cartDoc.data().items;
+} else {
+    return [];
+}
 });
 
 export const saveCart = createAsyncThunk('cart/saveCart', async (items, { getState }) => {
@@ -24,45 +30,67 @@ export const saveCart = createAsyncThunk('cart/saveCart', async (items, { getSta
     return items;
 });
 
+export const calculateTotals = (items) => {
+    let totalQuantity = 0;
+    let totalPrice = 0;
+
+    items.forEach(item => {
+        totalQuantity += item.quantity;
+        totalPrice += item.price * item.quantity;
+    });
+    return { totalQuantity, totalPrice };
+};
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
         addToCart: (state, action) => {
             const newItem = action.payload;
-            const existingItem = state.items.find(item => item.id === newItem.id);
-            if (existingItem) {
-                existingItem.quantity += newItem.quantity;
+            const existingItemIndex = state.items.findIndex(item => item.id === newItem.id);
+
+            if (existingItemIndex >= 0) {
+                state.items[existingItemIndex].quantity += newItem.quantity;
             } else {
                 state.items.push({ ...newItem, quantity: newItem.quantity });
             }
-            state.totalQuantity = state.items.reduce((total, item) => total + item.quantity, 0);
-            state.totalPrice = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
+
+            const totals = calculateTotals(state.items);
+            state.totalQuantity = totals.totalQuantity;
+            state.totalPrice = totals.totalPrice;
         },
         removeFromCart: (state, action) => {
             state.items = state.items.filter(item => item.id !== action.payload.id);
-            state.totalQuantity = state.items.reduce((total, item) => total + item.quantity, 0);
-            state.totalPrice = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
+
+            const totals = calculateTotals(state.items);
+            state.totalQuantity = totals.totalQuantity;
+            state.totalPrice = totals.totalPrice;
         },
         updateCartInfo: (state) => {
-            state.totalQuantity = state.items.reduce((total, item) => total + item.quantity, 0);
-            state.totalPrice = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
+            const totals = calculateTotals(state.items);
+            state.totalQuantity = totals.totalQuantity;
+            state.totalPrice = totals.totalPrice;
         }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(loadCart.pending, (state) => {
-                state.loading = true;
-            })
             .addCase(loadCart.fulfilled, (state, action) => {
                 state.items = action.payload;
                 state.loading = false;
+
+                const totals = calculateTotals(state.items);
+                state.totalQuantity = totals.totalQuantity;
+                state.totalPrice = totals.totalPrice;
             })
             .addCase(loadCart.rejected, (state) => {
                 state.loading = false;
             })
             .addCase(saveCart.fulfilled, (state, action) => {
                 state.items = action.payload;
+
+                const totals = calculateTotals(state.items);
+                state.totalQuantity = totals.totalQuantity;
+                state.totalPrice = totals.totalPrice;
             });
     },
 });

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
-import {  auth, firebase } from '../firebaseConfig';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 import BackGroundVideo from "../components/BackGroundVideo";
 import { colors } from '../constants/colors';
@@ -28,18 +27,19 @@ const LogInScreen = () => {
                     secureTextEntry
                 />
                 <View style={styles.buttonsContainer}>
-                    <Pressable
+                    <TouchableOpacity
                         onPress={() => navigation.navigate('Home')}
                         style={styles.button}
                     >
                         <Text style={styles.buttonText}>Enter</Text>
-                    </Pressable>
-                    <Pressable
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Register')}
                         title="Register"
                         style={styles.button}
                     >
                         <Text style={styles.buttonText}>Register</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -49,13 +49,14 @@ const LogInScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
     },
     formContainer: {
         position: 'absolute',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: colors.primary,
+        opacity: 0.9,
         borderRadius: 10,
         padding: 20,
         marginHorizontal: 40,
@@ -69,6 +70,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 20,
         fontFamily: 'UrbanistBold',
+        borderBottomWidth: 1,
+        borderBottomColor: colors.secondary,
     },
     input: {
         borderBottomWidth: 1,
