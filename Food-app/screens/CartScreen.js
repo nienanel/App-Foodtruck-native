@@ -43,10 +43,13 @@ export default CartScreen;
 
 const styles = StyleSheet.create({
     cartContainer: {
-        width: '100%',
+        padding: 20,
         height: '100%',
-        bottom: 10,
+        width: '100%',
         backgroundColor: colors.white,
+        alignContent: 'center',
+        justifyContent: 'center',
+        borderRadius: 20,
     },
     cartItmes: {
         marginHorizontal: 5,

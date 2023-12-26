@@ -28,7 +28,7 @@ const LogInScreen = () => {
                 />
                 <View style={styles.buttonsContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={() => navigation.navigate('MainTab')}
                         style={styles.button}
                     >
                         <Text style={styles.buttonText}>Enter</Text>
