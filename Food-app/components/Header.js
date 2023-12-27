@@ -5,14 +5,15 @@ import { AntDesign } from "@expo/vector-icons"
 import { useNavigation } from '@react-navigation/native'
 import Search from './Search'
 import { colors } from '../constants/colors'
+import CartIcon from './CartIcon'
 
 const Header = ({ onSearchSubmit }) => {
     const navigation = useNavigation();
-    const cartItemCount = useSelector(state => state.cart.totalQuantity);
+    // const cartItemCount = useSelector(state => state.cart.totalQuantity);
 
-    const handlePressCartIcon = () => {
-        navigation.navigate("Cart");
-    }
+    // const handlePressCartIcon = () => {
+    //     navigation.navigate("Cart");
+    // }
 
     return (
         <View style={styles.container}>
@@ -28,14 +29,7 @@ const Header = ({ onSearchSubmit }) => {
                     <Text style={styles.locationHeader}>Current Location</Text>
                     <AntDesign name="down" size={20} color={colors.secondary} />
                 </View>
-                <Pressable style={styles.cartIconWrapper} onPress={handlePressCartIcon}>
-                    <AntDesign name="shoppingcart" size={38} color={colors.secondary} />
-                    {cartItemCount > 0 && (
-                        <View style={styles.cartItemCountBadge}>
-                            <Text style={styles.cartItemCountText}>{cartItemCount}</Text>
-                        </View>
-                    )}
-                </Pressable>
+                <CartIcon />
             </View>
             <View className="mt-2 ">
                 <Search onSearchSubmit={onSearchSubmit} />
@@ -56,7 +50,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginTop: 10
+        marginTop: 10,
+        marginRight: 20,
     },
     logo: {
         width: 120,
@@ -80,26 +75,26 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         width: 170,
     },
-    cartIconWrapper: {
-        position: "relative",
-        marginRight: 20,
-    },
-    cartItemCountBadge: {
-        position: "absolute",
-        top: -5,
-        right: -5,
-        backgroundColor: colors.secondary,
-        borderRadius: 10,
-        width: 20,
-        height: 20,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    cartItemCountText: {
-        color: colors.white,
-        fontSize: 12,
-        fontFamily: "UrbanistBold",
-    },
+    // cartIconWrapper: {
+    //     position: "relative",
+    //     marginRight: 20,
+    // },
+    // cartItemCountBadge: {
+    //     position: "absolute",
+    //     top: -5,
+    //     right: -5,
+    //     backgroundColor: colors.secondary,
+    //     borderRadius: 10,
+    //     width: 20,
+    //     height: 20,
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    // },
+    // cartItemCountText: {
+    //     color: colors.white,
+    //     fontSize: 12,
+    //     fontFamily: "UrbanistBold",
+    // },
     leftIcon: {
         backgroundColor: colors.white,
         position: "absolute",
