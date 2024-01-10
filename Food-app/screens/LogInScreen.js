@@ -1,15 +1,44 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+
+import { setUser } from '../store/authSlice';
+import { useDispatch } from 'react-redux';
 
 import BackGroundVideo from "../components/BackGroundVideo";
 import { colors } from '../constants/colors';
+import { auth, firebase } from '../firebaseConfig';
 
 const LogInScreen = () => {
-    const navigation = useNavigation();
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+
+    const navigation = useNavigation();
+
+    const handleLogin = () => {
+        auth.signInWithEmailAndPassword(email, password)
+            .then(({ user }) => {
+                firebase.firestore().collection('users').doc(user.uid).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            const userData = {
+                                uid: user.uid,
+                                name: doc.data().name,
+                                email: user.email
+                            };
+                            dispatch(setUser(userData));
+                            navigation.navigate('MainTab');
+                        } else {
+                            Alert.alert('Error', 'User not found');
+                        }
+                    })
+                    .catch(error => {
+                        Alert.alert('Error', 'Error al obtener datos del usuario: ' + error.message);
+                    });
+            })
+            .catch(error => Alert.alert('Error', error.message));
+    };
 
     return (
         <View style={styles.container}>
@@ -19,16 +48,20 @@ const LogInScreen = () => {
                 <TextInput
                     style={styles.input}
                     placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
                     keyboardType="email-address"
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Password"
+                    value={password}
+                    onChangeText={setPassword}
                     secureTextEntry
                 />
                 <View style={styles.buttonsContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('MainTab')}
+                        onPress={handleLogin}
                         style={styles.button}
                     >
                         <Text style={styles.buttonText}>Enter</Text>
@@ -45,6 +78,8 @@ const LogInScreen = () => {
         </View>
     );
 };
+
+export default LogInScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -110,5 +145,3 @@ const styles = StyleSheet.create({
     },
 
 });
-
-export default LogInScreen;

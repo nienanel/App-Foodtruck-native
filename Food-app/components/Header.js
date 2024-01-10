@@ -1,6 +1,5 @@
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { AntDesign } from "@expo/vector-icons"
 import { useNavigation } from '@react-navigation/native'
 import Search from './Search'
@@ -9,11 +8,6 @@ import CartIcon from './CartIcon'
 
 const Header = ({ onSearchSubmit }) => {
     const navigation = useNavigation();
-    // const cartItemCount = useSelector(state => state.cart.totalQuantity);
-
-    // const handlePressCartIcon = () => {
-    //     navigation.navigate("Cart");
-    // }
 
     return (
         <View style={styles.container}>
@@ -75,26 +69,6 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         width: 170,
     },
-    // cartIconWrapper: {
-    //     position: "relative",
-    //     marginRight: 20,
-    // },
-    // cartItemCountBadge: {
-    //     position: "absolute",
-    //     top: -5,
-    //     right: -5,
-    //     backgroundColor: colors.secondary,
-    //     borderRadius: 10,
-    //     width: 20,
-    //     height: 20,
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    // },
-    // cartItemCountText: {
-    //     color: colors.white,
-    //     fontSize: 12,
-    //     fontFamily: "UrbanistBold",
-    // },
     leftIcon: {
         backgroundColor: colors.white,
         position: "absolute",

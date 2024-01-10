@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loadCart } from '../store/cartSlice';
-import { firebase } from "../firebaseConfig";
+import { selectItemByCategory } from '../store/selectors';
+import { fetchItems, setSelectedCategory } from '../store/categoriesSlice';
 
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../constants/colors';
@@ -10,53 +11,27 @@ import ItemDetailModal from '../components/ItemDetailModal';
 
 const FetchFiltered = ({ selectedCategory }) => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+    const loading = useSelector(state => state.categories.loading); 
+    const filteredItems = useSelector(selectItemByCategory)  
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const dataRef = useCallback(() => {
-        return firebase.firestore().collection('Menu');
-    }, []);
-
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let query = dataRef();
-                if (selectedCategory) {
-                    query = query.where('category', '==', selectedCategory);
-                }
-                const querySnapshot = await query.get()
-                const items = querySnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                    category: doc.data().category,
-                }));
-                setData(items);
-            } catch (error) {
-                console.error("Error al cargar los datos", error);
-            }
-        }
-
-        const loadCartData = () => {
-            dispatch(loadCart());
-        }
-
-        fetchData();
-        loadCartData();
-        setLoading(false);
-    }, [selectedCategory, dataRef, dispatch]);
+        dispatch(fetchItems());
+        dispatch(setSelectedCategory(selectedCategory));
+        dispatch(loadCart());
+    }, [selectedCategory, dispatch]);
 
     if (loading) {
         return (
             <View style={styles.loadingContainer}>
                 <AntDesign name="loading1" size={50} color="white" />
+                <Text>Loading...</Text>
             </View>
         )
     }
 
-
     const handlePressItem = (item) => {
-        setSelectedItem(item)
+        setSelectedItem(item);
     }
 
     return (
@@ -71,8 +46,7 @@ const FetchFiltered = ({ selectedCategory }) => {
             horizontal
             showsHorizontalScrollIndicator={false}
         >
-
-            {data.map((item) => (
+            {filteredItems.map((item) => (
                 <TouchableOpacity key={item.id} onPress={() => handlePressItem(item)} className="flex-1">
                     <View className="shadow-md shadow-black rounded-lg overflow-hidden">
                         <View style={styles.cardContainer}>
@@ -91,7 +65,6 @@ const FetchFiltered = ({ selectedCategory }) => {
                     </View>
                 </TouchableOpacity>
             ))}
-
             {selectedItem && <ItemDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} />}
         </ScrollView>
     )

@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, StyleSheet } from 'react-native'
+import { useDispatch } from 'react-redux';
+import { setSelectedCategory } from '../store/categoriesSlice';
 
 import Categories from './Categories'
 import { colors } from '../constants/colors';
 
 
 export default function CategoriesNav() {
-    const [ selectedCategory, setSelectedCategory ] = useState(null);
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const handleCategorySelect = (category) => {
-        setSelectedCategory(category);
+        dispatch(setSelectedCategory(category));
         navigation.navigate('FetchFilteredScreen', { selectedCategory: category });
     };
 
@@ -26,10 +28,11 @@ export default function CategoriesNav() {
     );
 };
 
+
 const styles = StyleSheet.create({
     catNavContainer: {
         backgroundColor: colors.primary,
-       marginHorizontal: 10,
+        marginHorizontal: 10,
         shadowColor: "black",
         shadowOffset: {
             width: 0,

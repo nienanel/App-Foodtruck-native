@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { firebase } from '../firebaseConfig'; 
+import { firebase } from '../firebaseConfig';
 
 const initialState = {
     items: [],
@@ -9,19 +9,19 @@ const initialState = {
 };
 
 // utilidades
-export const loadCart = createAsyncThunk('cart/loadCart', async ( _, { getState }) => {
+export const loadCart = createAsyncThunk('cart/loadCart', async (_, { getState }) => {
     const { cart } = getState();
     if (cart.items.length > 0) {
-        return cart.items; 
-};
+        return cart.items;
+    };
 
-const cartRef = firebase.firestore().collection('cart').doc('cart');
-const cartDoc = await cartRef.get();
-if (cartDoc.exists) {
-    return cartDoc.data().items;
-} else {
-    return [];
-}
+    const cartRef = firebase.firestore().collection('cart').doc('cart');
+    const cartDoc = await cartRef.get();
+    if (cartDoc.exists) {
+        return cartDoc.data().items;
+    } else {
+        return [];
+    }
 });
 
 export const saveCart = createAsyncThunk('cart/saveCart', async (items, { getState }) => {
