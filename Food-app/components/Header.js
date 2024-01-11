@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { AntDesign } from "@expo/vector-icons"
 import { useNavigation } from '@react-navigation/native'
@@ -11,9 +11,6 @@ const Header = ({ onSearchSubmit }) => {
 
     return (
         <View style={styles.container}>
-            <Pressable style={styles.leftIcon} onPress={() => navigation.goBack()}>
-                <AntDesign name='left' size={25} color={colors.secondary} />
-            </Pressable>
             <View style={styles.headerTop}>
                 <Image
                     source={require("../assets/logo2.png")}
@@ -59,6 +56,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         marginTop: 10,
+        padding: 2,
     },
     locationHeader: {
         fontSize: 13,
@@ -69,13 +67,4 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         width: 170,
     },
-    leftIcon: {
-        backgroundColor: colors.white,
-        position: "absolute",
-        top: 20,
-        left: 5,
-        zIndex: 1,
-        borderRadius: 10,
-        padding: 5,
-    }
 })

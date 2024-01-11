@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
-
 import { setUser } from '../store/authSlice';
 import { useDispatch } from 'react-redux';
-
 import BackGroundVideo from "../components/BackGroundVideo";
 import { colors } from '../constants/colors';
 import { auth, firebase } from '../firebaseConfig';
+import { ActivityIndicator } from 'react-native';
 
 const LogInScreen = () => {
     const [email, setEmail] = useState('');
@@ -15,8 +14,28 @@ const LogInScreen = () => {
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        return () => {
+            setEmail('');
+            setPassword('');
+        }
+    }, []);
+
+    const validateInput = () => {
+        if (!email.trim() || !password.trim()) {
+            Alert.alert('Error', 'Por favor, rellena todos los campos');
+            return false;
+        }
+        return true;
+    }
 
     const handleLogin = () => {
+        if (!validateInput()) return;
+
+        setIsLoading(true);
+
         auth.signInWithEmailAndPassword(email, password)
             .then(({ user }) => {
                 firebase.firestore().collection('users').doc(user.uid).get()
@@ -30,20 +49,22 @@ const LogInScreen = () => {
                             dispatch(setUser(userData));
                             navigation.navigate('MainTab');
                         } else {
-                            Alert.alert('Error', 'User not found');
+                            Alert.alert('Error', 'usuario no encontrado');
                         }
                     })
                     .catch(error => {
                         Alert.alert('Error', 'Error al obtener datos del usuario: ' + error.message);
                     });
+
             })
-            .catch(error => Alert.alert('Error', error.message));
+            .finally(() => setIsLoading(false));
     };
 
     return (
         <View style={styles.container}>
             <BackGroundVideo />
             <View style={styles.formContainer}>
+                {isLoading && <ActivityIndicator size={"large"} color={colors.secondary} />}
                 <Text style={styles.title}>Log In</Text>
                 <TextInput
                     style={styles.input}

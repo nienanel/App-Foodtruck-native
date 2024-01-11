@@ -1,6 +1,5 @@
 import React from 'react'
 import { SafeAreaView, View, StyleSheet} from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 // components
 import Header from "../components/Header"
 import CategoriesNav from '../components/CategoriesNav'
@@ -8,7 +7,6 @@ import FeaturedRow from '../components/FeaturedRow'
 import { colors } from '../constants/colors'
 
 function HomeScreen() {
-    const navigation = useNavigation()
 
     return (
         <SafeAreaView style={Styles.container}>

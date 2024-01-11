@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loadCart } from '../store/cartSlice';
 import { selectItemByCategory } from '../store/selectors';
 import { fetchItems, setSelectedCategory } from '../store/categoriesSlice';
-
-import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../constants/colors';
+import { ActivityIndicator } from 'react-native';
 import ItemDetailModal from '../components/ItemDetailModal';
 
 const FetchFiltered = ({ selectedCategory }) => {
@@ -24,7 +23,7 @@ const FetchFiltered = ({ selectedCategory }) => {
     if (loading) {
         return (
             <View style={styles.loadingContainer}>
-                <AntDesign name="loading1" size={50} color="white" />
+                <ActivityIndicator size="large" color={colors.secondary} />
                 <Text>Loading...</Text>
             </View>
         )

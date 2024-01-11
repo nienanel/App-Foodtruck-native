@@ -15,7 +15,7 @@ const CartIcon = ({ color, size }) => {
 
     return (
         <Pressable style={styles.cartIconWrapper} onPress={handlePressCartIcon}>
-            <AntDesign name="shoppingcart" size={25} color={color || colors.secondary} />
+            <AntDesign name="shoppingcart" size={30} color={color || colors.secondary} />
             {cartItemCount > 0 && (
                 <View style={styles.cartItemCountBadge}>
                     <Text style={styles.cartItemCountText}>{cartItemCount}</Text>
@@ -29,7 +29,6 @@ export default CartIcon;
 
 const styles = StyleSheet.create({
     cartIconWrapper: {
-        width: 50,
         justifyContent: "center",
         alignItems: "center",
     },

@@ -29,9 +29,7 @@ const TabBar = () => {
                 width: '100%',
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderRadius: 10,
                 position: 'absolute',
-                borderTopEndRadius: 100,
             }}
         >
             <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: ({ color }) => <AntDesign name="home" size={25} color={color} /> }} />
