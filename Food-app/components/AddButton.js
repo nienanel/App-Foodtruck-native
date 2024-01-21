@@ -2,27 +2,26 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { colors } from '../constants/colors'
 import React from 'react'
 
-const AddImageButton = ({ title, onPress }) => {
+const AddIButton = ({ title, onPress }) => {
     return (
-        <TouchableOpacity style={styles.editPhoto} onPress={onPress}>
-        {title && <Text style={styles.editPhotoText}>{title}</Text>}
-    </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={onPress}>
+            {title && <Text style={styles.editPhotoText}>{title}</Text>}
+        </TouchableOpacity>
     )
 }
 
-export default AddImageButton
+export default AddIButton
 
 const styles = StyleSheet.create({
-    editPhoto: {
+    button: {
         bottom: 1,
         left: 1,
-        color: "black",
         textAlign: "center",
         backgroundColor: colors.secondary,
         fontFamily: "UrbanistBold",
         borderRadius: 20,
-      width: 100,  
-        height: 30,
+        width: 110,
+        height: 35,
         marginTop: 10,
         justifyContent: "center",
         marginBottom: 20,

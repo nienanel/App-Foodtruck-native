@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { firebase } from '../firebaseConfig';
+import { firebase } from '../services/firebaseConfig';
 
 export const fetchItems = createAsyncThunk('categories/fetchItems', async (_, { rejectWithValue }) => {
     try {

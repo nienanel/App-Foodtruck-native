@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { firebase } from '../firebaseConfig';
+import { firebase } from '../services/firebaseConfig';
 
 const initialState = {
     items: [],

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { auth, firebase } from '../firebaseConfig';
+import { auth, firebase } from '../services/firebaseConfig';
 import { useDispatch } from 'react-redux';
 import { colors } from '../constants/colors';
+import { setUserDetails } from '../store/UserSlice';
+import { setUser } from '../store/authSlice';
 
 const RegisterScreen = () => {
     const navigator = useNavigation();
@@ -45,6 +47,8 @@ const RegisterScreen = () => {
                             email: email
                         };
                         dispatch(setUser(userData));
+                        dispatch(setUserDetails(userData));
+
                         console.log("Usuario registrado exitosamente");
                         navigator.navigate('MainTab');
                     })

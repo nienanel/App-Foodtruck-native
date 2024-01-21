@@ -1,17 +1,23 @@
 import { StyleSheet, Image, View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import AddImageButton from "../components/AddImageButton";
+import AddIButton from "./AddButton";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserImage } from "../store/UserSlice";
+import { storage } from "../services/firebaseConfig";
+import { saveUserLocationData, upLoadImageToStorage } from "../services/firestoreService";
 
 const ImageSelector = () => {
     const navigation = useNavigation()
-    const dispatch = useDispatch()
     const [image, setImage] = useState("")
+
+    const userAddress = useSelector(state => state.user.userAddress)
+    const userDetails = useSelector(state => state.user.userDetails)
+    const dispatch = useDispatch()
+
     const takeImage = async () => {
         let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -24,10 +30,10 @@ const ImageSelector = () => {
             const uri = result.assets[0].uri;
             setImage(uri);
         }
-    }
+    };
 
     const searchGallery = async () => {
-        let result =await ImagePicker.launchImageLibraryAsync({
+        let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 3],
@@ -38,13 +44,37 @@ const ImageSelector = () => {
             const uri = result.assets[0].uri;
             setImage(uri);
         }
-    }
-    const confirmImage = () => {
-        if (image) {
-            dispatch(setUserImage(image))
-            navigation.navigate("User", { image })
+    };
+    const confirmImage = async () => {
+        const imageUrl = await upLoadImageToStorage(image);
+
+        if (imageUrl && userDetails?.uid) {
+            dispatch(setUserImage(imageUrl))
+            navigation.navigate("User", { image: imageUrl })
+
+            try {
+                await saveUserLocationData(userDetails.uid, imageUrl, userAddress)
+                console.log("User data saved successfully");
+            } catch (error) {
+                console.error("Error saving user location data:", error)
+            }
+        } else {
+            console.log("Image URL or User ID is missing.");
+            // Show an alert or a message to the user
         }
-    }
+    };
+
+    const uploadImage = async () => {
+        if (image) {
+            const response = await fetch(image);
+            const blob = await response.blob();
+            const ref = storage.ref().child(`userImages/${new Date().toISOString()}`);
+            const snapshot = await ref.put(blob);
+            const imageUrl = await snapshot.ref.getDownloadURL();
+            return imageUrl
+        }
+        return null
+    };
 
     return (
         <View style={styles.Container}>
@@ -59,16 +89,16 @@ const ImageSelector = () => {
                             style={styles.image}
                             resizeMode="cover"
                         />
-                        <AddImageButton title="Take other photo" onPress={takeImage} />
-                        <AddImageButton title="confirm photo" onPress={confirmImage} />
+                        <AddIButton title="Take other photo" onPress={takeImage} />
+                        <AddIButton title="confirm photo" onPress={confirmImage} />
                     </>
                     :
                     <>
                         <View style={styles.noPhotoContainer}>
                             <Text style={styles.noPhotoText}>No photo selected</Text>
                         </View>
-                        <AddImageButton title="take photo" onPress={takeImage} />
-                        <AddImageButton title="search gallery" onPress={searchGallery} />
+                        <AddIButton title="take photo" onPress={takeImage} />
+                        <AddIButton title="search gallery" onPress={searchGallery} />
                     </>
             }
         </View>

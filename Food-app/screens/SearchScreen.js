@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { firebase } from '../firebaseConfig'
+import { firebase } from '../services/firebaseConfig'
 
 const SearchScreen = ({ route }) => {
     const { searchQuery } = route.params

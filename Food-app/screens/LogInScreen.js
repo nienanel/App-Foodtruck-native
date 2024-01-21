@@ -5,8 +5,9 @@ import { setUser } from '../store/authSlice';
 import { useDispatch } from 'react-redux';
 import BackGroundVideo from "../components/BackGroundVideo";
 import { colors } from '../constants/colors';
-import { auth, firebase } from '../firebaseConfig';
+import { auth, firebase } from '../services/firebaseConfig';
 import { ActivityIndicator } from 'react-native';
+import { setUserDetails } from '../store/UserSlice';
 
 const LogInScreen = () => {
     const [email, setEmail] = useState('');
@@ -47,6 +48,7 @@ const LogInScreen = () => {
                                 email: user.email
                             };
                             dispatch(setUser(userData));
+                            dispatch(setUserDetails(userData));
                             navigation.navigate('MainTab');
                         } else {
                             Alert.alert('Error', 'usuario no encontrado');

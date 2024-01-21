@@ -9,7 +9,8 @@ import LogInScreen from '../screens/LogInScreen';
 import CartScreen from '../screens/CartScreen';
 import RegisterScreen from '../screens/RegistrationScreen';
 import UserScreen from '../screens/UserScreen';
-import ImageSelectorScreen from '../screens/ImageSelectorScreen';
+import ImageSelectorScreen from '../components/ImageSelector';
+import LocationSelector from '../components/LocationSelector';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ const MainStackNavigator = () => {
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="User" component={UserScreen} />
             <Stack.Screen name="ImageSelector" component={ImageSelectorScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="LocationSelector" component={LocationSelector} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
