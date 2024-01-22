@@ -1,5 +1,5 @@
 import { StyleSheet, Image, View, Text } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import AddIButton from "./AddButton";
@@ -98,6 +98,7 @@ const ImageSelector = () => {
                             <Text style={styles.noPhotoText}>No photo selected</Text>
                         </View>
                         <AddIButton title="take photo" onPress={takeImage} />
+                        <AddIButton title="upload photo" onPress={uploadImage} />
                         <AddIButton title="search gallery" onPress={searchGallery} />
                     </>
             }

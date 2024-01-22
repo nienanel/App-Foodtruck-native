@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import { loadCart } from '../store/cartSlice';
-import { selectItemByCategory } from '../store/selectors';
-import { fetchItems, setSelectedCategory } from '../store/categoriesSlice';
 import { colors } from '../constants/colors';
 import { ActivityIndicator } from 'react-native';
 import ItemDetailModal from '../components/ItemDetailModal';
+import useItems from '../hooks/useItems';
 
 const FetchFiltered = ({ selectedCategory }) => {
-    const dispatch = useDispatch();
-    const loading = useSelector(state => state.categories.loading); 
-    const filteredItems = useSelector(selectItemByCategory)  
-    const [selectedItem, setSelectedItem] = useState(null);
-
-    useEffect(() => {
-        dispatch(fetchItems());
-        dispatch(setSelectedCategory(selectedCategory));
-        dispatch(loadCart());
-    }, [selectedCategory, dispatch]);
+    const {
+        loading,
+        filteredItems,
+        selectedItem,
+        handlePressItem,
+        setSelectedItem
+    } = useItems(selectedCategory);
 
     if (loading) {
         return (
@@ -29,9 +23,6 @@ const FetchFiltered = ({ selectedCategory }) => {
         )
     }
 
-    const handlePressItem = (item) => {
-        setSelectedItem(item);
-    }
 
     return (
         <ScrollView
@@ -41,24 +32,25 @@ const FetchFiltered = ({ selectedCategory }) => {
                 paddingBottom: 30,
                 gap: 10,
                 backgroundColor: colors.terciary,
+                flexWrap: 'wrap',
             }}
             horizontal
             showsHorizontalScrollIndicator={false}
         >
             {filteredItems.map((item) => (
-                <TouchableOpacity key={item.id} onPress={() => handlePressItem(item)} className="flex-1">
-                    <View className="shadow-md shadow-black rounded-lg overflow-hidden">
+                <TouchableOpacity key={item.id} onPress={() => handlePressItem(item)}>
+                    <View>
                         <View style={styles.cardContainer}>
-                            <View className="p-2">
-                                <Text className="text-lg font-semibold text-center border-b-2 border-red-500">{item.name}</Text>
+                            <View style={styles.cardHeader}>
+                                <Text style={styles.cardTitle}>{item.name}</Text>
                             </View>
                             <Image
                                 source={{ uri: item.img }}
-                                style={{ width: "100", height: 160, }}
+                                style={{ width: "100%", height: 160, }}
                             />
-                            <Text className="text-gray-700 my-3 text-center">{item.description}</Text>
-                            <View className="flex justify-between items-center">
-                                <Text className="text-red-500 font-semibold mb-2">{"$" + item.price}</Text>
+                            <Text>{item.description}</Text>
+                            <View>
+                                <Text style={styles.itemPrice}>{"$" + item.price}</Text>
                             </View>
                         </View>
                     </View>
@@ -75,11 +67,31 @@ const styles = StyleSheet.create({
     cardContainer: {
         backgroundColor: colors.white,
         padding: 10,
+        borderRadius: 10,
+        width: "100%",
     },
     loadingContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.primary,
+    },
+    itemPrice: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.secondary,
+        textAlign: 'center',
+    },
+    cardHeader: {
+        backgroundColor: colors.terciary,
+        padding: 10,
+        borderRadius: 10,
+        marginBottom: 10,
+    },
+    cardTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.black,
+        textAlign: 'center',
     }
 })

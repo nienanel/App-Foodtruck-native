@@ -1,29 +1,27 @@
 import React from 'react'
-import FetchFiltered from '../src/FetchFiltered'
+import FetchFilteredService from '../services/FetchFilteredService'
 import CategoriesNav from '../components/CategoriesNav'
-import {  StyleSheet, View, Image, Pressable } from 'react-native'
-import { AntDesign } from '@expo/vector-icons';
+import { StyleSheet, View, Image, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../constants/colors';
 import PopUpCart from '../components/PopUpCart';
+import { GoBackArrow } from '../components/GoBackArrow';
 
 const FetchFilteredScreen = ({ route }) => {
     const navigation = useNavigation()
     const { selectedCategory } = route.params
 
     return (
-        <View style={Styles.container}>  
-        <Pressable style={Styles.leftIcon} onPress={() => navigation.goBack()}>  
-            <AntDesign name='left' size={25} color='black' />
-        </Pressable>
-        <View style={Styles.imageContainer}>
-            <Image source={require('../assets/header2.png')} style={Styles.headerImage} />
+        <View style={Styles.container}>
+                <GoBackArrow />       
+            <View style={Styles.imageContainer}>
+                <Image source={require('../assets/header2.png')} style={Styles.headerImage} />
             </View>
             <View style={Styles.contentContainer}>
                 <CategoriesNav />
             </View>
             <View style={Styles.contentContainer}>
-                <FetchFiltered selectedCategory={selectedCategory} />
+                <FetchFilteredService selectedCategory={selectedCategory} />
             </View>
             <PopUpCart />
         </View>
@@ -48,11 +46,13 @@ const Styles = StyleSheet.create({
     },
     contentContainer: {
         marginTop: 20,
-        
+        marginBottom: 10,
+        alignItems: 'center',
+
     },
     headerImage: {
         height: 215,
-        width: '100%', 
+        width: '100%',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
     },

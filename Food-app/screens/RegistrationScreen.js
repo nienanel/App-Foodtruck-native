@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { auth, firebase } from '../services/firebaseConfig';
-import { useDispatch } from 'react-redux';
 import { colors } from '../constants/colors';
-import { setUserDetails } from '../store/UserSlice';
-import { setUser } from '../store/authSlice';
+import { useAuth } from '../hooks/useAuth';
 
 const RegisterScreen = () => {
-    const navigator = useNavigation();
-    const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const { signUp } = useAuth();
     //funcion de validacion de correo electronico
     const validateInput = () => {
         const emailRange = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -28,34 +22,9 @@ const RegisterScreen = () => {
         return true;
     }
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (!validateInput()) return;
-
-        // Crear usuario
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-
-                firebase.firestore().collection('users').doc(user.uid).set({
-                    name: name,
-                    email: email,
-                })
-                    .then(() => {
-                        const userData = {
-                            uid: user.uid,
-                            name: name,
-                            email: email
-                        };
-                        dispatch(setUser(userData));
-                        dispatch(setUserDetails(userData));
-
-                        console.log("Usuario registrado exitosamente");
-                        navigator.navigate('MainTab');
-                    })
-                    .catch((error) => {
-                        Alert.alert('Error al registrar usuario nuevo');
-                    });
-            })
+        await signUp(email, password, name);
     }
 
     return (

@@ -5,10 +5,10 @@ import { colors } from "../constants/colors";
 import MapPreview from "./MapPreview";
 import { googleAPI } from "../services/googleAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { AntDesign } from "@expo/vector-icons";
 import AddIButton from "./AddButton";
 import { setUserAddress } from "../store/UserSlice";
 import { saveUserLocationData } from "../services/firestoreService";
+import { GoBackArrow } from "./GoBackArrow";
 
 const LocationSelector = ({ navigation }) => {
     const [location, setLocation] = useState({ latitude: null, longitude: null });
@@ -72,7 +72,7 @@ const LocationSelector = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <AntDesign name="left" size={24} color="black" onPress={() => navigation.goBack()} style={styles.icon} />
+            <GoBackArrow />
             <Text style={styles.title}>My location</Text>
             {location ? (
                 <View style={styles.noLocationContainer}>

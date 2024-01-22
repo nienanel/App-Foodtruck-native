@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { Modal, View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, saveCart } from "../store/cartSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from "../constants/colors";
 
 const ItemDetailModal = ({ item, onClose }) => {
     const [count, setCount] = useState(1);
     const dispatch = useDispatch();
-    const cartItems = useSelector(state => state.cart.items);
 
     const addItemToCart = () => {
         if (count > 0) {
             const newItem = { ...item, quantity: count };
             dispatch(addToCart(newItem));
-            // dispatch(saveCart([...cartItems, newItem]));
             onClose();
         }
     };
@@ -34,7 +32,7 @@ const ItemDetailModal = ({ item, onClose }) => {
                 <View style={styles.modal}>
                     <Text style={styles.title}>{item.name}</Text>
                     <Text className="text-gray-700 my-3 text-center">{item.description}</Text>
-                    <Text className="text-red-500 text-center font-semibold mb-2">{`Price: $${item.price}`}</Text>
+                    <Text className="text-black text-center font-semibold mb-2">{`Price: $${item.price}`}</Text>
                     <TouchableOpacity onPress={onClose} className="absolute top-2 right-2">
                         <AntDesign name="closecircleo" size={24} color="black" />
                     </TouchableOpacity>

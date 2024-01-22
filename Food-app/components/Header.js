@@ -1,13 +1,20 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
-import React from 'react'
-import { AntDesign } from "@expo/vector-icons"
-import { useNavigation } from '@react-navigation/native'
-import Search from './Search'
-import { colors } from '../constants/colors'
-import CartIcon from './CartIcon'
+import React from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { AntDesign } from "@expo/vector-icons";
+import Search from './Search';
+import { colors } from '../constants/colors';
+import CartIcon from './CartIcon';
 
 const Header = ({ onSearchSubmit }) => {
-    const navigation = useNavigation();
+    const userAddress = useSelector(state => state.user.userAddress);
+
+    const formatAddress = (address, maxLength = 25) => {
+        if (address && address.length > maxLength) {
+            return address.substring(0, maxLength) + "...";
+        }
+        return address; 
+    };
 
     return (
         <View style={styles.container}>
@@ -17,7 +24,7 @@ const Header = ({ onSearchSubmit }) => {
                     style={styles.logo}
                 />
                 <View style={styles.locationContainer}>
-                    <Text style={styles.locationHeader}>Current Location</Text>
+                    <Text style={styles.locationHeader}>{formatAddress(userAddress) || "Current Location"}</Text>
                     <AntDesign name="down" size={20} color={colors.secondary} />
                 </View>
                 <CartIcon />
@@ -52,7 +59,6 @@ const styles = StyleSheet.create({
         marginLeft: 25,
     },
     locationContainer: {
-        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         marginTop: 10,
@@ -61,6 +67,7 @@ const styles = StyleSheet.create({
     locationHeader: {
         fontSize: 13,
         fontFamily: "UrbanistMedium",
+        textAlign: "center",
         backgroundColor: colors.white,
         borderRadius: 10,
         padding: 5,

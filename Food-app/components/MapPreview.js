@@ -1,7 +1,6 @@
 import { Image, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { googleAPI } from '../services/googleAPI'
-import AntDesign from '@expo/vector-icons/AntDesign';
 
 const MapPreview = ({ location }) => {
 

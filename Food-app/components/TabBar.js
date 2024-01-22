@@ -17,7 +17,7 @@ const TabBar = () => {
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: '#f9a825',
+                tabBarActiveTintColor: colors.secondary,
                 tabBarInactiveTintColor: 'black',
                 tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold' },
             }}
@@ -25,7 +25,7 @@ const TabBar = () => {
             inactiveColor='black'
             barStyle={{
                 backgroundColor: colors.secondary,
-                height: 65,
+                height: 70,
                 width: '100%',
                 justifyContent: 'center',
                 alignItems: 'center',

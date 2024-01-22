@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { setUser } from '../store/authSlice';
-import { useDispatch } from 'react-redux';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert , ActivityIndicator } from 'react-native';
 import BackGroundVideo from "../components/BackGroundVideo";
 import { colors } from '../constants/colors';
-import { auth, firebase } from '../services/firebaseConfig';
-import { ActivityIndicator } from 'react-native';
-import { setUserDetails } from '../store/UserSlice';
+import { useAuth } from '../hooks/useAuth';
+import { useNavigation } from '@react-navigation/native';
 
 const LogInScreen = () => {
+    const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
-
-    const navigation = useNavigation();
-    const [isLoading, setIsLoading] = useState(false);
+    const { signIn, isLoading } = useAuth();
 
     useEffect(() => {
         return () => {
@@ -26,40 +20,15 @@ const LogInScreen = () => {
 
     const validateInput = () => {
         if (!email.trim() || !password.trim()) {
-            Alert.alert('Error', 'Por favor, rellena todos los campos');
+            Alert.alert("Error", "Email and password are required");
             return false;
         }
         return true;
     }
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (!validateInput()) return;
-
-        setIsLoading(true);
-
-        auth.signInWithEmailAndPassword(email, password)
-            .then(({ user }) => {
-                firebase.firestore().collection('users').doc(user.uid).get()
-                    .then((doc) => {
-                        if (doc.exists) {
-                            const userData = {
-                                uid: user.uid,
-                                name: doc.data().name,
-                                email: user.email
-                            };
-                            dispatch(setUser(userData));
-                            dispatch(setUserDetails(userData));
-                            navigation.navigate('MainTab');
-                        } else {
-                            Alert.alert('Error', 'usuario no encontrado');
-                        }
-                    })
-                    .catch(error => {
-                        Alert.alert('Error', 'Error al obtener datos del usuario: ' + error.message);
-                    });
-
-            })
-            .finally(() => setIsLoading(false));
+        await signIn(email, password);
     };
 
     return (

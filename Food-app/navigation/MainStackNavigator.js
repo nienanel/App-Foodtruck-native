@@ -20,8 +20,8 @@ const MainStackNavigator = () => {
             <Stack.Screen name="LogIn" component={LogInScreen} options={{ headerShown: false }} />
             <Stack.Screen name="MainTab" component={TabBar} options={{ headerShown: false }} />
             <Stack.Screen name="FetchFilteredScreen" component={FetchFilteredScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Search" component={SearchScreen} />
-            <Stack.Screen name="Cart" component={CartScreen} />
+            <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="User" component={UserScreen} />
             <Stack.Screen name="ImageSelector" component={ImageSelectorScreen} options={{ headerShown: false }} />
