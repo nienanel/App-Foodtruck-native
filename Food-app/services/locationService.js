@@ -1,12 +1,12 @@
-import { googleAPI } from "../services/googleAPI"; // Ensure this is correctly imported
+import { googleAPI } from "../services/googleAPI";
 
-const GOOGLE_API_KEY = googleAPI.mapStatic; // Ensure you have your API key stored securely
+const GOOGLE_API_KEY = googleAPI.mapStatic;
 
 /**
  * Fetches a human-readable address from latitude and longitude coordinates using Google's Reverse Geocoding API.
- * @param {number} latitude - The latitude of the location.
- * @param {number} longitude - The longitude of the location.
- * @returns {Promise<string>} A promise that resolves to the formatted address.
+ * @param {number} latitude 
+ * @param {number} longitude 
+ * @returns {Promise<string>} 
  */
 export const fetchAddressFromCoords = async (latitude, longitude) => {
     try {
@@ -19,7 +19,9 @@ export const fetchAddressFromCoords = async (latitude, longitude) => {
         }
 
         const fetchedAddress = data.results[0].formatted_address;
+
         return fetchedAddress;
+
     } catch (error) {
         console.error("Error fetching address from coords:", error);
         throw error; // Re-throw the error so it can be handled by the calling function

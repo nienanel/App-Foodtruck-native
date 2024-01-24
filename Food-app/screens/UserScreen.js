@@ -1,12 +1,10 @@
-import { View, Text, Alert, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React  from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { useSelector, useDispatch } from 'react-redux'
-import { auth } from '../services/firebaseConfig'
-import { clearUser } from '../store/authSlice'
+import { useSelector } from 'react-redux'
+import { useAuth } from '../hooks/useAuth'
 import { colors } from '../constants/colors'
 import AddButton from '../components/AddButton'
-import { clearUserData } from '../store/UserSlice'
 
 
 const UserScreen = () => {
@@ -15,20 +13,8 @@ const UserScreen = () => {
     const user = useSelector(state => state.user.userDetails)
     const userAddress = useSelector(state => state.user.userAddress)
 
-    const dispatch = useDispatch()
+    const { signOut } = useAuth()
 
-    const handleLogout = () => {
-        auth.signOut()
-            .then(() => {
-                dispatch(clearUser())
-                dispatch(clearUserData())
-
-                Alert.alert('Cuenta cerrada')
-                navigation.navigate('LogIn')
-
-            })
-            .catch(error => Alert.alert('Error', error.message))
-    }
 
     return (
         <View style={styles.container}>
@@ -53,7 +39,7 @@ const UserScreen = () => {
                 <Text className="text-md font-bold text-left p-2">Name: {user?.name || "no name"}</Text>
                 <Text className="text-md font-bold text-left p-2 ">Email: {user?.email}</Text>
                 <Text className="text-md font-bold text-left p-2">Address: {userAddress}</Text>
-                <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
                     <Text style={styles.logoutButtonText}>Logout</Text>
                 </TouchableOpacity>
             </View>

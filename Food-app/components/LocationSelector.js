@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import * as Location from "expo-location";
+import React from "react";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import useLocation from "../hooks/useLocation";
 import { colors } from "../constants/colors";
 import MapPreview from "./MapPreview";
-import { googleAPI } from "../services/googleAPI";
 import { useDispatch, useSelector } from "react-redux";
 import AddIButton from "./AddButton";
 import { setUserAddress } from "../store/UserSlice";
@@ -11,64 +10,25 @@ import { saveUserLocationData } from "../services/firestoreService";
 import { GoBackArrow } from "./GoBackArrow";
 
 const LocationSelector = ({ navigation }) => {
-    const [location, setLocation] = useState({ latitude: null, longitude: null });
-    const [address, setAddress] = useState("");
-    const [error, setError] = useState("");
-
+    const { location, address, error, isLoading } = useLocation();
     const dispatch = useDispatch()
     const userDetails = useSelector(state => state.user.userDetails)
 
-
-    useEffect(() => {
-        (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== "granted") {
-                setError("Permission to access location was denied");
-                console.log("Permission to access location was denied");
-                return
-            }
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude
-            })
-        })();
-        console.log(location)
-    }, [])
-
-    useEffect(() => {
-        (async () => {
-            if (location) {
-                try {
-                    const urlReverseGeocode = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.latitude},${location.longitude}&key=${googleAPI.mapStatic}`
-                    const response = await fetch(urlReverseGeocode)
-                    const data = await response.json()
-
-                    if (data.results.length > 0) {
-                        const fetchedAddress = data.results[0].formatted_address;
-                        setAddress(fetchedAddress);
-                        dispatch(setUserAddress(fetchedAddress));
-                    } else {
-                        console.log("No address found for this location.");
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        })();
-    }, [location])
+    if (isLoading) {
+        return <ActivityIndicator size="large" color={colors.secondary} />
+    }
 
     const handleConfirmLocation = async () => {
-        if (location && userDetails && userDetails.uid) {
+        if (location.latitude && location.longitude && userDetails && userDetails.uid && address) {
             try {
+                dispatch(setUserAddress(address))
                 await saveUserLocationData(userDetails.uid, location, address)
-                console.log("User data saved successfully");
                 navigation.navigate("User")
             } catch (error) {
-                console.error("Error saving user location data:", error)
+                console.log("Error saving user location data:", error)
             }
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
@@ -93,7 +53,7 @@ const LocationSelector = ({ navigation }) => {
     )
 }
 
-export default LocationSelector
+export default LocationSelector;
 
 const styles = StyleSheet.create({
     container: {

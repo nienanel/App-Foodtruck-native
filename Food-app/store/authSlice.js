@@ -10,7 +10,13 @@ export const authSlice = createSlice({
             state.user = action.payload;
         },
         clearUser: state => {
-            state.user = null
+            state.user = {
+                email: null,
+                token: null,
+                userImage: null,
+                userAddress: null,
+                userDetails: null,
+            }
         },
     }
 });

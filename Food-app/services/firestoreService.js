@@ -1,11 +1,16 @@
 import { firestore, storage } from "./firebaseConfig";
 
-export const saveUserLocationData = async (userId, imageUrl, address) => {
+export const saveUserLocationData = async (userId, address, location) => {
+    if (!userId || !address || !location) {
+        throw new Error("Missing Invalid arguments for saveUserLocationDat parameters");
+        return;
+    }
+
     try {
         const userRef = firestore.collection("users").doc(userId);
         await userRef.set({
-            image: imageUrl,
             address,
+            location
         }, { merge: true });
 
     } catch (error) {
