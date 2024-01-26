@@ -10,20 +10,20 @@ const GOOGLE_API_KEY = googleAPI.mapStatic;
  */
 export const fetchAddressFromCoords = async (latitude, longitude) => {
     try {
-        const urlReverseGeocode = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_API_KEY}`;
-        const response = await fetch(urlReverseGeocode);
-        const data = await response.json();
+        const urlReverseGeocode = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_API_KEY}`
+        const response = await fetch(urlReverseGeocode)
+        const data = await response.json()
 
         if (!data.results || data.results.length === 0) {
-            throw new Error("No address found for this location.");
+            throw new Error("No address found for this location.")
         }
 
-        const fetchedAddress = data.results[0].formatted_address;
+        const fetchedAddress = data.results[0].formatted_address
 
         return fetchedAddress;
 
     } catch (error) {
-        console.error("Error fetching address from coords:", error);
-        throw error; // Re-throw the error so it can be handled by the calling function
+        console.error("Error fetching address from coords:", error)
+        throw error;
     }
 };

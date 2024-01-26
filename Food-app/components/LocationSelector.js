@@ -10,7 +10,7 @@ import { saveUserLocationData } from "../services/firestoreService";
 import { GoBackArrow } from "./GoBackArrow";
 
 const LocationSelector = ({ navigation }) => {
-    const { location, address, error, isLoading } = useLocation();
+    const { location, address, error, isLoading } = useLocation()
     const dispatch = useDispatch()
     const userDetails = useSelector(state => state.user.userDetails)
 
@@ -40,7 +40,7 @@ const LocationSelector = ({ navigation }) => {
                         {address}
                     </Text>
                     <MapPreview location={location} />
-                    <AddIButton style={styles.button} title={"Confirmn"} onPress={handleConfirmLocation} />
+                    <AddIButton style={styles.button} title={"Confirm"} onPress={handleConfirmLocation} />
                 </View>
             ) : (
                 <>
@@ -51,7 +51,7 @@ const LocationSelector = ({ navigation }) => {
             )}
         </View >
     )
-}
+};
 
 export default LocationSelector;
 

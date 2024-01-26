@@ -3,7 +3,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
     userDetails: null,
     userImage: null,
-    userAddress: null
+    userAddress: null,
+    isLoading: false,
+    error: null
 }
 
 export const fetchUserDetails = createAsyncThunk('user/fetchUserDetails', async (userId, thunkAPI) => {
@@ -51,4 +53,4 @@ const userSlice = createSlice({
 });
 
 export const { setUserImage, clearUserData, setUserAddress, setUserDetails } = userSlice.actions;
-export default userSlice.reducer
+export default userSlice.reducer;

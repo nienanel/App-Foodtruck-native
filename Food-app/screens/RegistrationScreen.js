@@ -4,10 +4,10 @@ import { colors } from '../constants/colors';
 import { useAuth } from '../hooks/useAuth';
 
 const RegisterScreen = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { signUp } = useAuth();
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const { signUp } = useAuth()
     //funcion de validacion de correo electronico
     const validateInput = () => {
         const emailRange = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -24,7 +24,7 @@ const RegisterScreen = () => {
 
     const handleRegister = async () => {
         if (!validateInput()) return;
-        await signUp(email, password, name);
+        await signUp(email, password, name)
     }
 
     return (
@@ -56,7 +56,7 @@ const RegisterScreen = () => {
             </TouchableOpacity>
         </View>
     );
-}
+};
 
 export default RegisterScreen;
 

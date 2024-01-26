@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
-import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useState } from 'react';
+import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../constants/colors';
 
 const Search = ({ onSearchSubmit }) => {
-    const [search, setSearch] = useState('');
-    const navigation = useNavigation();
+    const [search, setSearch] = useState('')
+    const navigation = useNavigation()
 
     const handleSearchSubmit = () => {
-        navigation.navigate('Search', { searchQuery: search });
+        navigation.navigate('Search', { searchQuery: search })
     };
 
     return (
@@ -31,7 +30,7 @@ const Search = ({ onSearchSubmit }) => {
     );
 };
 
-export default Search
+export default Search;
 
 const styles = StyleSheet.create({
     searchContainer: {

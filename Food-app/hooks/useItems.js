@@ -5,10 +5,10 @@ import { selectItemByCategory } from "../store/selectors";
 import { fetchItems, setSelectedCategory } from "../store/categoriesSlice";
 
 const useItems = (selectedCategory) => {
-    const dispatch = useDispatch();
-    const loading = useSelector(state => state.categories.loading);
-    const filteredItems = useSelector(selectItemByCategory);
-    const [selectedItem, setSelectedItem] = useState(null);
+    const dispatch = useDispatch()
+    const loading = useSelector(state => state.categories.loading)
+    const filteredItems = useSelector(selectItemByCategory)
+    const [selectedItem, setSelectedItem] = useState(null)
 
     useEffect(() => {
         dispatch(fetchItems());
@@ -18,7 +18,7 @@ const useItems = (selectedCategory) => {
 
     const handlePressItem = (item) => {
         setSelectedItem(item);
-    };
+    }
 
     return {
         loading,

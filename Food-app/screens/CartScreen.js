@@ -19,19 +19,19 @@ const CartItem = ({ item, onRemove }) => (
 );
 
 const CartScreen = () => {
-    const navigation = useNavigation();
-    const { items: cartItems, totalPrice } = useSelector(state => state.cart);
-    const dispatch = useDispatch();
+    const navigation = useNavigation()
+    const { items: cartItems, totalPrice } = useSelector(state => state.cart)
+    const dispatch = useDispatch()
 
     const removeItemFromCart = (item) => {
-        dispatch(removeFromCart({ id: item.id }));
-        Alert.alert('Item removed from cart');
+        dispatch(removeFromCart({ id: item.id }))
+        Alert.alert('Item removed from cart')
     };
 
     const handleCheckout = () => {
-        dispatch(checkout());
-        Alert.alert('Order placed successfully');
-        navigation.navigate('MainTab');
+        dispatch(checkout())
+        Alert.alert('Order placed successfully')
+        navigation.navigate('MainTab')
     }
 
     return (
@@ -52,7 +52,7 @@ const CartScreen = () => {
                 />
                 <Text style={styles.cartTotal}>{`Total Price: $${totalPrice.toFixed(2)}`}</Text>
                 <View style={styles.buttonContainer}>
-                    <AddIButton title={'Checkout'} onPress={handleCheckout}/>
+                    <AddIButton title={'Checkout'} onPress={handleCheckout} />
                 </View>
             </View>
         </View>

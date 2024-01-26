@@ -5,7 +5,7 @@ import MainStackNavigator from "../navigation/MainStackNavigator";
 import LogInScreen from "../screens/LogInScreen";
 
 const AppInitialization = ({ navigation }) => {
-    const { session, isLoading } = useSession();
+    const { session, isLoading } = useSession()
 
     if (isLoading) {
         return <ActivityIndicator size={"large"} />

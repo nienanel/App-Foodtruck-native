@@ -4,42 +4,33 @@ import { googleAPI } from "../services/googleAPI";
 import { fetchAddressFromCoords } from "../services/locationService";
 
 const useLocation = () => {
-    // const [location, setLocation] = useState({ latitude: null, longitude: null });
-    const { latitude, longitude} = locationResult.coords
-    const [address, setAddress] = useState(null);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [location, setLocation] = useState(null)
+    const [address, setAddress] = useState(null)
+    const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         (async () => {
             try {
-                let { status } = await Location.requestForegroundPermissionsAsync()
+                let { status } = await Location.requestForegroundPermissionsAsync();
                 if (status !== 'granted') {
-                    setError('Permission to access location was denied')
-                    setIsLoading(false)
-                    return
+                    setError('Permission to access location was denied');
+                    setIsLoading(false);
+                    return;
                 }
-
+    
                 let locationResult = await Location.getCurrentPositionAsync({});
-                setLocation({
-                    latitude: locationResult.coords.latitude,
-                    longitude: locationResult.coords.longitude
-                });
-
-                const urlReverseGeocode = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}&key=${googleAPI.mapStatic}`
-                const response = await fetch(urlReverseGeocode)
-                const data = await response.json()
-
-                if (data.results.length > 0) {
-                    const fetchedAddress = await fetchAddressFromCoords(latitude, longitude)
-                    setAddress(fetchedAddress)
-                } else {
-                    setError('No address found for this location')
-                }
+                const { latitude, longitude } = locationResult.coords;
+                setLocation({ latitude, longitude });
+                console.log({ latitude, longitude });
+    
+                // Usar la función fetchAddressFromCoords para obtener la dirección
+                const fetchedAddress = await fetchAddressFromCoords(latitude, longitude);
+                setAddress(fetchedAddress);
+                setIsLoading(false); // Asegúrate de establecer isLoading en false después de obtener la dirección
             } catch (error) {
-                setError(error)
-            } finally {
-                setIsLoading(false)
+                setError(error.message || "An unexpected error occurred");
+                setIsLoading(false); // Asegúrate de establecer isLoading en false si hay un error
             }
         })();
     }, []);

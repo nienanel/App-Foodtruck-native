@@ -6,14 +6,14 @@ import { AntDesign } from '@expo/vector-icons';
 import { colors } from "../constants/colors";
 
 const ItemDetailModal = ({ item, onClose }) => {
-    const [count, setCount] = useState(1);
-    const dispatch = useDispatch();
+    const [count, setCount] = useState(1)
+    const dispatch = useDispatch()
 
     const addItemToCart = () => {
         if (count > 0) {
-            const newItem = { ...item, quantity: count };
+            const newItem = { ...item, quantity: count }
             dispatch(addToCart(newItem));
-            onClose();
+            onClose()
         }
     };
 

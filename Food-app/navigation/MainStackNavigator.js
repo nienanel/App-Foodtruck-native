@@ -12,7 +12,7 @@ import UserScreen from '../screens/UserScreen';
 import ImageSelectorScreen from '../components/ImageSelector';
 import LocationSelector from '../components/LocationSelector';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 const MainStackNavigator = () => {
     return (
@@ -28,6 +28,6 @@ const MainStackNavigator = () => {
             <Stack.Screen name="LocationSelector" component={LocationSelector} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
-}
+};
 
-export default MainStackNavigator
+export default MainStackNavigator;

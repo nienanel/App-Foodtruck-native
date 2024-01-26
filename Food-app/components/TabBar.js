@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { colors } from '../constants/colors';
 import { AntDesign } from "@expo/vector-icons"
@@ -43,6 +43,6 @@ const TabBar = () => {
                 }} />
         </Tab.Navigator>
     )
-}
+};
 
-export default TabBar
+export default TabBar;

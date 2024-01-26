@@ -4,9 +4,9 @@ import { getSession } from "../db";
 import { setUser } from "../store/authSlice";
 
 const useSession = () => {
-    const [session, setSession] = useState(null);
-    const [isloading, setIsLoading] = useState(true);
-    const dispatch = useDispatch();
+    const [session, setSession] = useState(null)
+    const [isloading, setIsLoading] = useState(true)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         (async () => {
@@ -25,7 +25,7 @@ const useSession = () => {
                 setIsLoading(false);
             }
         })();
-    },[]);
+    }, []);
 
     return { session, isloading };
 };

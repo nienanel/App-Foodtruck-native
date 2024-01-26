@@ -9,13 +9,13 @@ import { colors } from '../constants/colors';
 
 
 export default function CategoriesNav() {
-    const navigation = useNavigation();
-    const dispatch = useDispatch();
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
 
     const handleCategorySelect = (category) => {
-        dispatch(setSelectedCategory(category));
-        navigation.navigate('FetchFilteredScreen', { selectedCategory: category });
-    };
+        dispatch(setSelectedCategory(category))
+        navigation.navigate('FetchFilteredScreen', { selectedCategory: category })
+    }
 
     return (
         <ScrollView style={styles.catNavContainer}

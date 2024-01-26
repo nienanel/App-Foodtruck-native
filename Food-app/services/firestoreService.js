@@ -1,10 +1,14 @@
 import { firestore, storage } from "./firebaseConfig";
 
-export const saveUserLocationData = async (userId, address, location) => {
-    if (!userId || !address || !location) {
+export const saveUserLocationData = async (userId, address = null, location = null) => {
+    if (!userId) {
         throw new Error("Missing Invalid arguments for saveUserLocationDat parameters");
         return;
     }
+
+    const updateData = {}
+    if (address) updateData.address = address
+    if (location) updateData.location = location
 
     try {
         const userRef = firestore.collection("users").doc(userId);
@@ -14,7 +18,7 @@ export const saveUserLocationData = async (userId, address, location) => {
         }, { merge: true });
 
     } catch (error) {
-        console.error("Error saving user location data:", error);
+        console.error("Error saving user location data:", error)
         throw error;
     }
 };

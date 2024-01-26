@@ -1,10 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import React  from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
-import { useAuth } from '../hooks/useAuth'
-import { colors } from '../constants/colors'
-import AddButton from '../components/AddButton'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useAuth } from '../hooks/useAuth';
+import { colors } from '../constants/colors';
+import AddButton from '../components/AddButton';
 
 
 const UserScreen = () => {
@@ -45,9 +45,9 @@ const UserScreen = () => {
             </View>
         </View>
     )
-}
+};
 
-export default UserScreen
+export default UserScreen;
 
 const styles = StyleSheet.create({
     container: {

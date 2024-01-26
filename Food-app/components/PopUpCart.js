@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../constants/colors';
 
 const PopUpCart = () => {
-    const navigation = useNavigation();
-    const { totalQuantity, totalPrice } = useSelector(state => state.cart);
+    const navigation = useNavigation()
+    const { totalQuantity, totalPrice } = useSelector(state => state.cart)
 
     return (
         <View style={styles.popContainer}>
@@ -17,7 +17,9 @@ const PopUpCart = () => {
             </TouchableOpacity>
         </View>
     )
-}
+};
+
+export default PopUpCart;
 
 const styles = StyleSheet.create({
     popContainer: {
@@ -54,6 +56,4 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     }
 })
-
-export default PopUpCart
 

@@ -7,14 +7,14 @@ import { colors } from '../constants/colors';
 import CartIcon from './CartIcon';
 
 const Header = ({ onSearchSubmit }) => {
-    const userAddress = useSelector(state => state.user.userAddress);
+    const userAddress = useSelector(state => state.user.userAddress)
 
     const formatAddress = (address, maxLength = 25) => {
         if (address && address.length > maxLength) {
             return address.substring(0, maxLength) + "...";
         }
         return address; 
-    };
+    }
 
     return (
         <View style={styles.container}>
@@ -34,7 +34,7 @@ const Header = ({ onSearchSubmit }) => {
             </View>
         </View>
     )
-}
+};
 
 export default Header;
 

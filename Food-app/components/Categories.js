@@ -1,6 +1,5 @@
 import { ScrollView } from "react-native";
 import React from "react";
-
 import CategoryCard from "./CategoryCard";
 
 //categories images
@@ -29,6 +28,6 @@ const Categories = ({ onSelectCategory }) => {
             <CategoryCard localImage={categorySix} title="desert" onSelectCategory={onSelectCategory} />
         </ScrollView>
     );
-}
+};
 
 export default Categories;

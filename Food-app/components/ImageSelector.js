@@ -14,7 +14,7 @@ const ImageSelector = () => {
     const navigation = useNavigation()
     const [image, setImage] = useState("")
 
-    const userAddress = useSelector(state => state.user.userAddress)
+    // const userAddress = useSelector(state => state.user.userAddress)
     const userDetails = useSelector(state => state.user.userDetails)
     const dispatch = useDispatch()
 
@@ -24,7 +24,7 @@ const ImageSelector = () => {
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
-        });
+        })
 
         if (!result.canceled && result.assets && result.assets.length > 0) {
             const uri = result.assets[0].uri;
@@ -38,13 +38,14 @@ const ImageSelector = () => {
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
-        });
+        })
 
         if (!result.canceled && result.assets && result.assets.length > 0) {
             const uri = result.assets[0].uri;
             setImage(uri);
         }
     };
+
     const confirmImage = async () => {
         const imageUrl = await upLoadImageToStorage(image);
 
@@ -53,14 +54,13 @@ const ImageSelector = () => {
             navigation.navigate("User", { image: imageUrl })
 
             try {
-                await saveUserLocationData(userDetails.uid, imageUrl, userAddress)
+                await saveUserLocationData(userDetails.uid, null, imageUrl)
                 console.log("User data saved successfully");
             } catch (error) {
                 console.error("Error saving user location data:", error)
             }
         } else {
             console.log("Image URL or User ID is missing.");
-            // Show an alert or a message to the user
         }
     };
 
@@ -104,9 +104,9 @@ const ImageSelector = () => {
             }
         </View>
     )
-}
+};
 
-export default ImageSelector
+export default ImageSelector;
 
 const styles = StyleSheet.create({
     Container: {

@@ -1,6 +1,6 @@
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { colors } from '../constants/colors'
-import React from 'react'
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors } from '../constants/colors';
+import React from 'react';
 
 const AddIButton = ({ title, onPress }) => {
     return (
@@ -8,9 +8,9 @@ const AddIButton = ({ title, onPress }) => {
             {title && <Text style={styles.editPhotoText}>{title}</Text>}
         </TouchableOpacity>
     )
-}
+};
 
-export default AddIButton
+export default AddIButton;
 
 const styles = StyleSheet.create({
     button: {
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
     }
-})
+});

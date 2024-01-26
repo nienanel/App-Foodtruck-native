@@ -15,7 +15,7 @@ const MapPreview = ({ location }) => {
             />
         </View>
     )
-}
+};
 
 export default MapPreview;
 

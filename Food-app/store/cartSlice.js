@@ -37,7 +37,7 @@ export const calculateTotals = (items) => {
     items.forEach(item => {
         totalQuantity += item.quantity;
         totalPrice += item.price * item.quantity;
-    });
+    })
     return { totalQuantity, totalPrice };
 };
 

@@ -8,9 +8,9 @@ import { setUserDetails } from "../store/UserSlice";
 import { deleteSession, insertSession } from "../db";
 
 export const useAuth = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const dispatch = useDispatch();
-    const navigation = useNavigation();
+    const [isLoading, setIsLoading] = useState(false)
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
 
     const handleSessionInsertion = async (userData) => {
         try {

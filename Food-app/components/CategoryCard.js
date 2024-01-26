@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import React from 'react';
+import { Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { colors } from '../constants/colors';
 
 function CategoryCard({ imgUrl, title, localImage, onSelectCategory }) {
@@ -7,7 +7,7 @@ function CategoryCard({ imgUrl, title, localImage, onSelectCategory }) {
     let source = imgUrl ? { uri: imgUrl } : localImage;
     const handlePress = () => {
         onSelectCategory(title)
-    };
+    }
 
 
     return (
@@ -23,9 +23,9 @@ function CategoryCard({ imgUrl, title, localImage, onSelectCategory }) {
             <Text style={styles.textCard}>{title}</Text>
         </TouchableOpacity>
     )
-}
+};
 
-export default CategoryCard
+export default CategoryCard;
 
 
 const styles = StyleSheet.create({

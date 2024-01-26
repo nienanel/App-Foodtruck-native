@@ -1,9 +1,9 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native'
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
-import { colors } from '../constants/colors'
-import { AntDesign } from '@expo/vector-icons'
+import { View, Text, Pressable, StyleSheet } from 'react-native';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { colors } from '../constants/colors';
+import { AntDesign } from '@expo/vector-icons';
 
 const CartIcon = ({ color, size }) => {
     const cartItemCount = useSelector(state => state.cart.totalQuantity)
@@ -23,7 +23,7 @@ const CartIcon = ({ color, size }) => {
             )}
         </Pressable>
     )
-}
+};
 
 export default CartIcon;
 

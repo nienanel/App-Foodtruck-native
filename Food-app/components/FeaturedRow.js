@@ -1,7 +1,6 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
-import { AntDesign } from '@expo/vector-icons'
-
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import React from 'react';
+import { AntDesign } from '@expo/vector-icons';
 import FoodTrucksCards from './FoodTrucksCards';
 import { colors } from '../constants/colors';
 
@@ -56,6 +55,9 @@ const FeaturedRow = ({ title, description }) => {
         </View>
     );
 };
+
+export default FeaturedRow;
+
 const styles = StyleSheet.create({
     featuredContainer: {
         backgroundColor: colors.primary,
@@ -71,6 +73,3 @@ const styles = StyleSheet.create({
         borderBottomColor: colors.secondary,
     }    
 })
-
-
-export default FeaturedRow;

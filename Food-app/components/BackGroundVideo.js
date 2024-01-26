@@ -1,6 +1,6 @@
-import React from 'react'
-import { Video, ResizeMode } from "expo-av"
-import { View, StyleSheet} from 'react-native'
+import React from 'react';
+import { Video, ResizeMode } from "expo-av";
+import { View, StyleSheet} from 'react-native';
 
 const BackGroundVideo = () => {
     return (
@@ -16,9 +16,9 @@ const BackGroundVideo = () => {
             />
         </View>
     )
-}
+};
 
-export default BackGroundVideo
+export default BackGroundVideo;
 
 const styles = StyleSheet.create({
     backgroundVideo: {

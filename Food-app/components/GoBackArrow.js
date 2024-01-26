@@ -7,7 +7,7 @@ export const GoBackArrow = () => {
     const navigation = useNavigation()
 
     return <AntDesign name="left" size={24} color="black" onPress={() => navigation.goBack()} style={styles.icon} />
-}
+};
 
 const styles = {
     icon: {

@@ -9,7 +9,7 @@ const CartInitializer = ({ children }) => {
         dispatch(loadCart())
     }, [dispatch])
 
-    return<>{children}</>
+    return <>{children}</>
 };
 
 export default CartInitializer;

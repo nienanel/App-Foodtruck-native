@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { colors } from '../constants/colors';
 import { ActivityIndicator } from 'react-native';
 import ItemDetailModal from '../components/ItemDetailModal';
@@ -59,9 +59,9 @@ const FetchFiltered = ({ selectedCategory }) => {
             {selectedItem && <ItemDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} />}
         </ScrollView>
     )
-}
+};
 
-export default FetchFiltered
+export default FetchFiltered;
 
 const styles = StyleSheet.create({
     cardContainer: {

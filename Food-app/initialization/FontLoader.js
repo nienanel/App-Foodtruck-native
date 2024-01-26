@@ -12,6 +12,6 @@ const FontLoader = ({ children }) => {
     }
 
     return children
-}
+};
 
 export default FontLoader;

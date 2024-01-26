@@ -1,7 +1,7 @@
-import React from 'react'
-import FetchFilteredService from '../services/FetchFilteredService'
-import CategoriesNav from '../components/CategoriesNav'
-import { StyleSheet, View, Image, Pressable } from 'react-native'
+import React from 'react';
+import FetchFilteredService from '../services/FetchFilteredService';
+import CategoriesNav from '../components/CategoriesNav';
+import { StyleSheet, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../constants/colors';
 import PopUpCart from '../components/PopUpCart';
@@ -13,7 +13,7 @@ const FetchFilteredScreen = ({ route }) => {
 
     return (
         <View style={Styles.container}>
-                <GoBackArrow />       
+            <GoBackArrow />
             <View style={Styles.imageContainer}>
                 <Image source={require('../assets/header2.png')} style={Styles.headerImage} />
             </View>
@@ -26,9 +26,9 @@ const FetchFilteredScreen = ({ route }) => {
             <PopUpCart />
         </View>
     )
-}
+};
 
-export default FetchFilteredScreen
+export default FetchFilteredScreen;
 
 const Styles = StyleSheet.create({
     container: {

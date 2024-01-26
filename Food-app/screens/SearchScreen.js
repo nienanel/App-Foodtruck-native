@@ -9,7 +9,7 @@ import { GoBackArrow } from '../components/GoBackArrow';
 const SearchScreen = ({ route }) => {
     const navigation = useNavigation()
     const { searchQuery } = route.params
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState([])
 
     useEffect(() => {
         const fethData = async () => {
@@ -52,14 +52,14 @@ const SearchScreen = ({ route }) => {
                         </View>
                     </TouchableOpacity>
                 )}
-                keyExtractor={(item,index) => `search-item-${index}`}
+                keyExtractor={(item, index) => `search-item-${index}`}
                 style={styles.list}
             />
         </View>
     )
-}
+};
 
-export default SearchScreen
+export default SearchScreen;
 
 const styles = StyleSheet.create({
     container: {

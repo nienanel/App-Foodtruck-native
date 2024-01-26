@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert , ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import BackGroundVideo from "../components/BackGroundVideo";
 import { colors } from '../constants/colors';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigation } from '@react-navigation/native';
 
 const LogInScreen = () => {
-    const navigation = useNavigation();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { signIn, isLoading } = useAuth();
+    const navigation = useNavigation()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const { signIn, isLoading } = useAuth()
 
     useEffect(() => {
         return () => {
@@ -29,7 +29,7 @@ const LogInScreen = () => {
     const handleLogin = async () => {
         if (!validateInput()) return;
         await signIn(email, password);
-    };
+    }
 
     return (
         <View style={styles.container}>

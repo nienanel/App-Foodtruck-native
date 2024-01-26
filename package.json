@@ -1,0 +1,21 @@
+{
+  "name": "app-foodtruck",
+  "version": "1.0.0",
+  "description": "una app para perdidos de comida y localizacion de los foodtruck de la zona,  uso de firebase para la data",
+  "main": "index.js",
+  "dependencies": {
+    "js-tokens": "^4.0.0",
+    "loose-envify": "^1.4.0",
+    "react": "^18.0.0",
+    "react-redux": "^9.0.3",
+    "use-sync-external-store": "^1.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.41.1",
+    "@types/node": "^20.11.6"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
