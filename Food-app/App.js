@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import * as SplashScreen from 'expo-splash-screen';
 import { store } from './store/store';
@@ -21,6 +21,7 @@ init()
 
 export default function App() {
   const [isAppReady, setIsAppReady] = useState(false);
+  const navigationRef = useNavigationContainerRef();
 
   useEffect(() => {
     async function prepareApp() {
@@ -53,7 +54,7 @@ export default function App() {
     <Provider store={store}>
       <CartInitializer>
         <FontLoader>
-          <NavigationContainer>
+          <NavigationContainer ref={navigationRef}>
             <StatusBar style="auto" />
             <AppInitialization />
           </NavigationContainer>

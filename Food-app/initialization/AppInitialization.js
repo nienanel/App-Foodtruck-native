@@ -4,7 +4,7 @@ import useSession from "../hooks/useSession";
 import MainStackNavigator from "../navigation/MainStackNavigator";
 import LogInScreen from "../screens/LogInScreen";
 
-const AppInitialization = ({ navigation }) => {
+const AppInitialization = () => {
     const { session, isLoading } = useSession()
 
     if (isLoading) {

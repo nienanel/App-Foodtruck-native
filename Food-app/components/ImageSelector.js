@@ -13,27 +13,11 @@ import { saveUserLocationData, upLoadImageToStorage } from "../services/firestor
 const ImageSelector = () => {
     const navigation = useNavigation()
     const [image, setImage] = useState("")
-
-    // const userAddress = useSelector(state => state.user.userAddress)
     const userDetails = useSelector(state => state.user.userDetails)
     const dispatch = useDispatch()
 
-    const takeImage = async () => {
-        let result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        })
-
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            const uri = result.assets[0].uri;
-            setImage(uri);
-        }
-    };
-
-    const searchGallery = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
+    const pickImage = async (method) => {
+        let result = await method({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 3],
@@ -63,18 +47,9 @@ const ImageSelector = () => {
             console.log("Image URL or User ID is missing.");
         }
     };
-
-    const uploadImage = async () => {
-        if (image) {
-            const response = await fetch(image);
-            const blob = await response.blob();
-            const ref = storage.ref().child(`userImages/${new Date().toISOString()}`);
-            const snapshot = await ref.put(blob);
-            const imageUrl = await snapshot.ref.getDownloadURL();
-            return imageUrl
-        }
-        return null
-    };
+    if (isLoading) {
+        return <ActivityIndicator size="large" style={styles.loader} />;
+    }
 
     return (
         <View style={styles.Container}>
@@ -89,7 +64,7 @@ const ImageSelector = () => {
                             style={styles.image}
                             resizeMode="cover"
                         />
-                        <AddIButton title="Take other photo" onPress={takeImage} />
+                        <AddIButton title="Take other photo" onPress={() => pickImage(ImagePicker.launchCameraAsync)} />
                         <AddIButton title="confirm photo" onPress={confirmImage} />
                     </>
                     :
@@ -97,9 +72,8 @@ const ImageSelector = () => {
                         <View style={styles.noPhotoContainer}>
                             <Text style={styles.noPhotoText}>No photo selected</Text>
                         </View>
-                        <AddIButton title="take photo" onPress={takeImage} />
-                        <AddIButton title="upload photo" onPress={uploadImage} />
-                        <AddIButton title="search gallery" onPress={searchGallery} />
+                        <AddIButton title="take photo" onPress={() => pickImage(ImagePicker.launchCameraAsync)} />
+                        <AddIButton title="search gallery" onPress={() => pickImage(ImagePicker.launchImageLibraryAsync)} />
                     </>
             }
         </View>
